@@ -1,0 +1,685 @@
+{% extends "base.html" %}
+
+{% block title %}Resume Builder - SmartCareer{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gray-50 min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12" data-aos="fade-up">
+            <div class="inline-block bg-blue-100 text-blue-600 p-4 rounded-full mb-4">
+                <i class="fas fa-file-alt text-4xl"></i>
+            </div>
+            <h1 class="text-4xl font-bold mb-4 gradient-text">AI Resume Builder</h1>
+            <p class="text-gray-600 text-lg">Create a professional resume in minutes</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Resume Form -->
+            <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-right">
+                <h2 class="text-2xl font-bold mb-6">Your Information</h2>
+                
+                <form id="resumeForm" class="space-y-6">
+                    <!-- Personal Info -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="fullName" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="John Doe" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="john@example.com" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                        <input type="tel" id="phone" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="+1 234 567 8900">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
+                        <input type="url" id="linkedin" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Portfolio/Website</label>
+                        <input type="url" id="website" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="https://yourwebsite.com">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Professional Summary</label>
+                        <textarea id="summary" rows="4" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="Brief summary of your professional background..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Skills (comma separated)</label>
+                        <input type="text" id="skills" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="Python, JavaScript, React, Node.js">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Education</label>
+                        <textarea id="education" rows="3" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="Degree, University, Year"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Experience</label>
+                        <textarea id="experience" rows="4" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-600 focus:outline-none" placeholder="Job Title, Company, Duration, Responsibilities..."></textarea>
+                    </div>
+
+                    <button type="button" onclick="generateResume()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition">
+                        <i class="fas fa-magic mr-2"></i>Generate Resume
+                    </button>
+                </form>
+            </div>
+
+            <!-- Resume Preview -->
+            <div class="bg-white rounded-xl shadow-lg p-8 sticky top-20" data-aos="fade-left">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Preview</h2>
+                    <button onclick="downloadResume()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        <i class="fas fa-download mr-2"></i>Download PDF
+                    </button>
+                </div>
+
+                <div id="resumePreview" class="border-2 border-gray-200 rounded-lg p-6 min-h-[600px] bg-white">
+                    <div class="text-center text-gray-400 py-20">
+                        <i class="fas fa-file-alt text-6xl mb-4"></i>
+                        <p>Fill the form to see your resume preview</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates -->
+        <div class="mt-12" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="text-2xl font-bold mb-6 text-center">Choose a Template</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div id="template-modern" class="template-card bg-white p-4 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 border-2 border-indigo-600 transform hover:scale-105" onclick="selectTemplate('modern')">
+                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 h-40 rounded-lg mb-3 flex items-center justify-center text-white relative overflow-hidden">
+                        <i class="fas fa-file-alt text-4xl"></i>
+                        <div class="absolute top-2 right-2 bg-white text-indigo-600 px-2 py-1 rounded-full text-xs font-bold">
+                            <i class="fas fa-check"></i> Active
+                        </div>
+                    </div>
+                    <h4 class="font-bold text-center text-indigo-600">Modern</h4>
+                    <p class="text-xs text-gray-500 text-center mt-1">Clean & Professional</p>
+                </div>
+                <div id="template-classic" class="template-card bg-white p-4 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 border-2 border-transparent transform hover:scale-105" onclick="selectTemplate('classic')">
+                    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 h-40 rounded-lg mb-3 flex items-center justify-center text-white">
+                        <i class="fas fa-file-alt text-4xl"></i>
+                    </div>
+                    <h4 class="font-bold text-center">Classic</h4>
+                    <p class="text-xs text-gray-500 text-center mt-1">Traditional & Elegant</p>
+                </div>
+                <div id="template-creative" class="template-card bg-white p-4 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 border-2 border-transparent transform hover:scale-105" onclick="selectTemplate('creative')">
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-600 h-40 rounded-lg mb-3 flex items-center justify-center text-white">
+                        <i class="fas fa-file-alt text-4xl"></i>
+                    </div>
+                    <h4 class="font-bold text-center">Creative</h4>
+                    <p class="text-xs text-gray-500 text-center mt-1">Bold & Unique</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+let selectedTemplate = 'modern';
+
+function selectTemplate(template) {
+    selectedTemplate = template;
+    
+    // Update UI to show active template
+    document.querySelectorAll('.template-card').forEach(card => {
+        card.classList.remove('border-indigo-600', 'border-blue-600', 'border-purple-600');
+        card.classList.add('border-transparent');
+        const badge = card.querySelector('.absolute');
+        if (badge) badge.remove();
+    });
+    
+    const activeCard = document.getElementById('template-' + template);
+    if (template === 'modern') {
+        activeCard.classList.remove('border-transparent');
+        activeCard.classList.add('border-indigo-600');
+        activeCard.querySelector('h4').classList.add('text-indigo-600');
+    } else if (template === 'classic') {
+        activeCard.classList.remove('border-transparent');
+        activeCard.classList.add('border-blue-600');
+        activeCard.querySelector('h4').classList.add('text-blue-600');
+    } else {
+        activeCard.classList.remove('border-transparent');
+        activeCard.classList.add('border-purple-600');
+        activeCard.querySelector('h4').classList.add('text-purple-600');
+    }
+    
+    const badge = document.createElement('div');
+    badge.className = 'absolute top-2 right-2 bg-white px-2 py-1 rounded-full text-xs font-bold';
+    badge.innerHTML = '<i class="fas fa-check"></i> Active';
+    if (template === 'modern') badge.classList.add('text-indigo-600');
+    else if (template === 'classic') badge.classList.add('text-blue-600');
+    else badge.classList.add('text-purple-600');
+    
+    activeCard.querySelector('.relative').appendChild(badge);
+    
+    generateResume();
+}
+
+function generateResume() {
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const linkedin = document.getElementById('linkedin').value;
+    const website = document.getElementById('website').value;
+    const summary = document.getElementById('summary').value;
+    const skills = document.getElementById('skills').value;
+    const education = document.getElementById('education').value;
+    const experience = document.getElementById('experience').value;
+
+    if (!fullName) {
+        document.getElementById('resumePreview').innerHTML = '<div class="text-center text-gray-400 py-20"><i class="fas fa-file-alt text-6xl mb-4"></i><p>Fill the form to see your resume preview</p></div>';
+        return;
+    }
+
+    const skillsArray = skills.split(',').map(s => s.trim()).filter(s => s);
+    
+    let resumeHTML = '';
+    
+    if (selectedTemplate === 'modern') {
+        resumeHTML = generateModernTemplate(fullName, email, phone, linkedin, website, summary, skillsArray, education, experience);
+    } else if (selectedTemplate === 'classic') {
+        resumeHTML = generateClassicTemplate(fullName, email, phone, linkedin, website, summary, skillsArray, education, experience);
+    } else {
+        resumeHTML = generateCreativeTemplate(fullName, email, phone, linkedin, website, summary, skillsArray, education, experience);
+    }
+
+    document.getElementById('resumePreview').innerHTML = resumeHTML;
+}
+
+function generateModernTemplate(name, email, phone, linkedin, website, summary, skills, education, experience) {
+    let html = '<div class="space-y-6 animate-fade-in">';
+    
+    // Header
+    html += '<div class="text-center border-b-2 border-indigo-600 pb-4">';
+    html += '<h1 class="text-3xl font-bold text-gray-800 mb-2">' + name + '</h1>';
+    html += '<div class="text-sm text-gray-600 space-y-1">';
+    if (email) html += '<div><i class="fas fa-envelope mr-2 text-indigo-600"></i>' + email + '</div>';
+    if (phone) html += '<div><i class="fas fa-phone mr-2 text-indigo-600"></i>' + phone + '</div>';
+    if (linkedin) html += '<div><i class="fab fa-linkedin mr-2 text-indigo-600"></i>' + linkedin + '</div>';
+    if (website) html += '<div><i class="fas fa-globe mr-2 text-indigo-600"></i>' + website + '</div>';
+    html += '</div></div>';
+
+    // Summary
+    if (summary) {
+        html += '<div><h2 class="text-xl font-bold text-indigo-600 mb-2 flex items-center"><i class="fas fa-user mr-2"></i>Professional Summary</h2>';
+        html += '<p class="text-gray-700 text-sm leading-relaxed">' + summary + '</p></div>';
+    }
+
+    // Skills
+    if (skills.length > 0) {
+        html += '<div><h2 class="text-xl font-bold text-indigo-600 mb-2 flex items-center"><i class="fas fa-code mr-2"></i>Skills</h2>';
+        html += '<div class="flex flex-wrap gap-2">';
+        skills.forEach(skill => {
+            html += '<span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">' + skill + '</span>';
+        });
+        html += '</div></div>';
+    }
+
+    // Education
+    if (education) {
+        html += '<div><h2 class="text-xl font-bold text-indigo-600 mb-2 flex items-center"><i class="fas fa-graduation-cap mr-2"></i>Education</h2>';
+        html += '<p class="text-gray-700 text-sm whitespace-pre-line leading-relaxed">' + education + '</p></div>';
+    }
+
+    // Experience
+    if (experience) {
+        html += '<div><h2 class="text-xl font-bold text-indigo-600 mb-2 flex items-center"><i class="fas fa-briefcase mr-2"></i>Experience</h2>';
+        html += '<p class="text-gray-700 text-sm whitespace-pre-line leading-relaxed">' + experience + '</p></div>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
+function generateClassicTemplate(name, email, phone, linkedin, website, summary, skills, education, experience) {
+    let html = '<div class="space-y-5 animate-fade-in">';
+    
+    // Header
+    html += '<div class="border-b-4 border-blue-800 pb-3">';
+    html += '<h1 class="text-4xl font-serif font-bold text-gray-900 mb-1">' + name + '</h1>';
+    html += '<div class="text-sm text-gray-700">';
+    const contacts = [];
+    if (email) contacts.push(email);
+    if (phone) contacts.push(phone);
+    if (linkedin) contacts.push(linkedin);
+    if (website) contacts.push(website);
+    html += contacts.join(' | ');
+    html += '</div></div>';
+
+    // Summary
+    if (summary) {
+        html += '<div><h2 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase border-b border-gray-400">Summary</h2>';
+        html += '<p class="text-gray-800 text-sm">' + summary + '</p></div>';
+    }
+
+    // Skills
+    if (skills.length > 0) {
+        html += '<div><h2 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase border-b border-gray-400">Skills</h2>';
+        html += '<p class="text-gray-800 text-sm">' + skills.join(', ') + '</p></div>';
+    }
+
+    // Education
+    if (education) {
+        html += '<div><h2 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase border-b border-gray-400">Education</h2>';
+        html += '<p class="text-gray-800 text-sm whitespace-pre-line">' + education + '</p></div>';
+    }
+
+    // Experience
+    if (experience) {
+        html += '<div><h2 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase border-b border-gray-400">Experience</h2>';
+        html += '<p class="text-gray-800 text-sm whitespace-pre-line">' + experience + '</p></div>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
+function generateCreativeTemplate(name, email, phone, linkedin, website, summary, skills, education, experience) {
+    let html = '<div class="space-y-6 animate-fade-in">';
+    
+    // Header with gradient
+    html += '<div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6 rounded-lg -m-6 mb-6">';
+    html += '<h1 class="text-3xl font-bold mb-3">' + name + '</h1>';
+    html += '<div class="text-sm space-y-1 opacity-90">';
+    if (email) html += '<div><i class="fas fa-envelope mr-2"></i>' + email + '</div>';
+    if (phone) html += '<div><i class="fas fa-phone mr-2"></i>' + phone + '</div>';
+    if (linkedin) html += '<div><i class="fab fa-linkedin mr-2"></i>' + linkedin + '</div>';
+    if (website) html += '<div><i class="fas fa-globe mr-2"></i>' + website + '</div>';
+    html += '</div></div>';
+
+    // Summary
+    if (summary) {
+        html += '<div><h2 class="text-xl font-bold text-purple-700 mb-2">About Me</h2>';
+        html += '<p class="text-gray-700 text-sm italic">' + summary + '</p></div>';
+    }
+
+    // Skills with creative styling
+    if (skills.length > 0) {
+        html += '<div><h2 class="text-xl font-bold text-purple-700 mb-2">My Skills</h2>';
+        html += '<div class="flex flex-wrap gap-2">';
+        skills.forEach(skill => {
+            html += '<span class="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 px-4 py-2 rounded-lg text-sm font-semibold shadow-sm">' + skill + '</span>';
+        });
+        html += '</div></div>';
+    }
+
+    // Education
+    if (education) {
+        html += '<div><h2 class="text-xl font-bold text-purple-700 mb-2">Education</h2>';
+        html += '<p class="text-gray-700 text-sm whitespace-pre-line">' + education + '</p></div>';
+    }
+
+    // Experience
+    if (experience) {
+        html += '<div><h2 class="text-xl font-bold text-purple-700 mb-2">Experience</h2>';
+        html += '<p class="text-gray-700 text-sm whitespace-pre-line">' + experience + '</p></div>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
+function downloadResume() {
+    const element = document.getElementById('resumePreview');
+    const name = document.getElementById('fullName').value || 'resume';
+    
+    if (!name || name === 'resume') {
+        showNotification('Please fill in your name before downloading', 'warning');
+        return;
+    }
+    
+    // Show loading notification
+    showNotification('Generating your PDF resume...', 'info');
+    
+    const opt = {
+        margin: 0.5,
+        filename: name.replace(/\s+/g, '_') + '_resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+        showNotification('Resume downloaded successfully!', 'success');
+    }).catch((error) => {
+        console.error('PDF generation error:', error);
+        showNotification('Error generating PDF. Please try again.', 'error');
+    });
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-20 right-4 px-6 py-4 rounded-lg shadow-2xl z-50 transform transition-all duration-500 translate-x-full`;
+    
+    const colors = {
+        success: 'bg-green-500 text-white',
+        error: 'bg-red-500 text-white',
+        warning: 'bg-yellow-500 text-white',
+        info: 'bg-blue-500 text-white'
+    };
+    
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+    
+    notification.className += ` ${colors[type]}`;
+    notification.innerHTML = `
+        <div class="flex items-center gap-3">
+            <i class="fas ${icons[type]} text-xl"></i>
+            <span class="font-medium">${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => notification.remove(), 500);
+    }, 3000);
+}
+
+// Auto-generate on form input with debounce
+let debounceTimer;
+document.getElementById('resumeForm').addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(generateResume, 300);
+});
+
+// Add smooth scroll animations
+document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
+    
+    // Add scroll progress indicator
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-indicator';
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+    
+    // Add parallax effect to header
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('[data-aos="fade-up"]');
+        parallaxElements.forEach(el => {
+            const speed = 0.5;
+            el.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+    
+    // Add smooth reveal on scroll for cards
+    const cards = document.querySelectorAll('.bg-white');
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s ease-out';
+        cardObserver.observe(card);
+    });
+    
+    // Add typing effect notification
+    let typingTimeout;
+    const formInputs = document.querySelectorAll('input, textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            this.style.borderColor = '#667eea';
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                this.style.borderColor = '';
+            }, 1000);
+        });
+    });
+});
+</script>
+
+<style>
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.template-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.template-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.template-card:hover::before {
+    left: 100%;
+}
+
+.template-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+#resumePreview {
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    transform: scale(1.01);
+    transition: transform 0.2s ease;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+input, textarea {
+    transition: all 0.2s ease;
+}
+
+button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Parallax effect for sections */
+section {
+    position: relative;
+}
+
+/* Loading animation for preview */
+#resumePreview.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Gradient text animation */
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Floating animation for icons */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.fa-file-alt {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Stagger animation for form fields */
+.space-y-6 > div {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.space-y-6 > div:nth-child(1) { animation-delay: 0.1s; }
+.space-y-6 > div:nth-child(2) { animation-delay: 0.2s; }
+.space-y-6 > div:nth-child(3) { animation-delay: 0.3s; }
+.space-y-6 > div:nth-child(4) { animation-delay: 0.4s; }
+.space-y-6 > div:nth-child(5) { animation-delay: 0.5s; }
+.space-y-6 > div:nth-child(6) { animation-delay: 0.6s; }
+.space-y-6 > div:nth-child(7) { animation-delay: 0.7s; }
+.space-y-6 > div:nth-child(8) { animation-delay: 0.8s; }
+
+/* Hover effect for labels */
+label {
+    transition: color 0.2s ease;
+}
+
+input:focus + label,
+textarea:focus + label {
+    color: #4f46e5;
+}
+
+/* Progress indicator */
+.progress-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    z-index: 9999;
+    transition: width 0.3s ease;
+}
+</style>
+{% endblock %}

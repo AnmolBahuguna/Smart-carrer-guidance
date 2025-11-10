@@ -1,0 +1,409 @@
+{% extends "base.html" %}
+
+{% block title %}SmartCareer - AI-Powered Career Guidance{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/smartcareer-enhanced.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 1.5rem;">
+    <div style="text-align: center; padding: 5rem 0; color: white;">
+      <h1 class="hero-title fade-in-up">Discover Your Dream Career with AI</h1>
+      <p class="hero-subtitle fade-in-up" style="animation-delay: 0.2s; max-width: 700px; margin: 0 auto 2.5rem;">
+        Get personalized career recommendations powered by artificial intelligence. Take our smart quiz and chat with our AI mentor to unlock your potential.
+      </p>
+      
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem;" class="fade-in-up">
+        <a href="/quiz" class="btn btn-primary" style="padding: 1rem 2rem;">
+          <i class="fas fa-clipboard-list"></i> Start Career Quiz
+        </a>
+        <a href="/chatbot" class="btn btn-secondary" style="padding: 1rem 2rem;">
+          <i class="fas fa-comments"></i> Chat with AI
+        </a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 600px; margin: 0 auto;" class="fade-in-up">
+        <div>
+          <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">50+</div>
+          <div style="font-size: 0.875rem; opacity: 0.8;">Career Paths</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">10k+</div>
+          <div style="font-size: 0.875rem; opacity: 0.8;">Students</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">95%</div>
+          <div style="font-size: 0.875rem; opacity: 0.8;">Accuracy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-indigo-700">
+                How It Works
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Your journey to the perfect career in 3 simple steps
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            <div class="hidden md:block absolute top-1/4 left-1/4 right-1/4 h-1 bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200"></div>
+            
+            <div class="relative" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-indigo-200">
+                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg rotate-3 hover:rotate-6 transition-transform">
+                            <i class="fas fa-clipboard-list text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <div class="inline-block bg-indigo-100 text-indigo-600 px-4 py-1 rounded-full text-sm font-bold mb-4">Step 1</div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Take Assessment</h3>
+                        <p class="text-gray-600 leading-relaxed">Complete our comprehensive career test designed to discover your unique strengths, interests, and personality traits</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-purple-200">
+                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg rotate-3 hover:rotate-6 transition-transform">
+                            <i class="fas fa-brain text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <div class="inline-block bg-purple-100 text-purple-600 px-4 py-1 rounded-full text-sm font-bold mb-4">Step 2</div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Get AI Analysis</h3>
+                        <p class="text-gray-600 leading-relaxed">Our advanced AI analyzes your responses and matches you with perfect career opportunities tailored to your profile</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-pink-200">
+                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg rotate-3 hover:rotate-6 transition-transform">
+                            <i class="fas fa-route text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <div class="inline-block bg-pink-100 text-pink-600 px-4 py-1 rounded-full text-sm font-bold mb-4">Step 3</div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Receive Guidance</h3>
+                        <p class="text-gray-600 leading-relaxed">Get your personalized career roadmap with step-by-step learning paths, resources, and actionable next steps</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section style="padding: 5rem 0;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 1rem;">Powerful Features</h2>
+      <p style="font-size: 1.25rem; color: #4a5568;">Everything you need for your career journey</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+      <div class="feature-card fade-in-up">
+        <div class="feature-icon"><i class="fas fa-robot"></i></div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">AI Career Mentor</h3>
+        <p style="color: #4a5568; margin-bottom: 1rem;">24/7 personalized career advice from AI</p>
+        <a href="/chatbot" style="color: #667eea; font-weight: 600; text-decoration: none;">Start Chatting →</a>
+      </div>
+
+      <div class="feature-card fade-in-up" style="animation-delay: 0.2s;">
+        <div class="feature-icon"><i class="fas fa-university"></i></div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">College Finder</h3>
+        <p style="color: #4a5568; margin-bottom: 1rem;">Find the perfect college match</p>
+        <a href="/college-finder" style="color: #667eea; font-weight: 600; text-decoration: none;">Explore →</a>
+      </div>
+
+      <div class="feature-card fade-in-up" style="animation-delay: 0.4s;">
+        <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Resume Builder</h3>
+        <p style="color: #4a5568; margin-bottom: 1rem;">Create professional resumes</p>
+        <a href="/resume-builder" style="color: #667eea; font-weight: 600; text-decoration: none;">Build →</a>
+      </div>
+
+      <div class="feature-card fade-in-up">
+        <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Scholarships</h3>
+        <p style="color: #4a5568; margin-bottom: 1rem;">Find financial aid opportunities</p>
+        <a href="/scholarships" style="color: #667eea; font-weight: 600; text-decoration: none;">Find →</a>
+      </div>
+
+      <div class="feature-card fade-in-up" style="animation-delay: 0.2s;">
+        <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Career Roadmap</h3>
+        <p style="color: #4a5568; margin-bottom: 1rem;">Step-by-step career learning paths</p>
+        <a href="/roadmap" style="color: #667eea; font-weight: 600; text-decoration: none;">View Roadmap →</a>
+      </div>
+
+      <div class="feature-card fade-in-up" style="animation-delay: 0.4s;">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Career Insights</h3>
+        <p style="color: #4a5568; margin-bottom: 1rem;">Industry trends and salary data</p>
+        <a href="/career_insights" style="color: #667eea; font-weight: 600; text-decoration: none;">Explore →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Career Roadmap Section -->
+<section style="padding: 5rem 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+    <div style="text-align: center; margin-bottom: 4rem; color: white;">
+      <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">🗺️ Career Roadmap</h2>
+      <p style="font-size: 1.25rem; opacity: 0.95; max-width: 700px; margin: 0 auto;">
+        Explore detailed career paths with step-by-step guidance for top careers
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+      <!-- Software Developer -->
+      <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+          <i class="fas fa-code" style="color: white; font-size: 1.75rem;"></i>
+        </div>
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; color: #1a202c;">Software Developer</h3>
+        <p style="color: #4a5568; margin-bottom: 1.5rem; line-height: 1.6;">Learn programming, frameworks, and build real-world applications</p>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Timeline</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #667eea;">6-12 months</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Difficulty</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #48bb78;">Beginner-Friendly</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-size: 0.875rem; color: #718096;">Avg Salary</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #667eea;">₹8-25 LPA</span>
+          </div>
+        </div>
+        
+        <a href="/roadmap/Software Developer" style="display: block; width: 100%; background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-align: center; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+          View Roadmap →
+        </a>
+      </div>
+
+      <!-- Data Scientist -->
+      <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #48bb78, #38a169); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+          <i class="fas fa-chart-bar" style="color: white; font-size: 1.75rem;"></i>
+        </div>
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; color: #1a202c;">Data Scientist</h3>
+        <p style="color: #4a5568; margin-bottom: 1.5rem; line-height: 1.6;">Master statistics, ML, and data analysis to drive insights</p>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Timeline</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #48bb78;">8-14 months</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Difficulty</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #ed8936;">Intermediate</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-size: 0.875rem; color: #718096;">Avg Salary</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #48bb78;">₹12-30 LPA</span>
+          </div>
+        </div>
+        
+        <a href="/roadmap/Data Scientist" style="display: block; width: 100%; background: linear-gradient(135deg, #48bb78, #38a169); color: white; text-align: center; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+          View Roadmap →
+        </a>
+      </div>
+
+      <!-- AI/ML Engineer -->
+      <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #9f7aea, #805ad5); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+          <i class="fas fa-brain" style="color: white; font-size: 1.75rem;"></i>
+        </div>
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; color: #1a202c;">AI/ML Engineer</h3>
+        <p style="color: #4a5568; margin-bottom: 1.5rem; line-height: 1.6;">Build intelligent systems using AI and machine learning</p>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Timeline</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #9f7aea;">10-18 months</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Difficulty</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #f56565;">Advanced</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-size: 0.875rem; color: #718096;">Avg Salary</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #9f7aea;">₹15-35 LPA</span>
+          </div>
+        </div>
+        
+        <a href="/roadmap/AI/ML Engineer" style="display: block; width: 100%; background: linear-gradient(135deg, #9f7aea, #805ad5); color: white; text-align: center; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+          View Roadmap →
+        </a>
+      </div>
+
+      <!-- UX/UI Designer -->
+      <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-8px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #f6ad55, #ed8936); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+          <i class="fas fa-palette" style="color: white; font-size: 1.75rem;"></i>
+        </div>
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; color: #1a202c;">UX/UI Designer</h3>
+        <p style="color: #4a5568; margin-bottom: 1.5rem; line-height: 1.6;">Create beautiful and user-friendly digital experiences</p>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Timeline</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #f6ad55;">5-10 months</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: #718096;">Difficulty</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #48bb78;">Beginner-Friendly</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-size: 0.875rem; color: #718096;">Avg Salary</span>
+            <span style="font-size: 0.875rem; font-weight: 600; color: #f6ad55;">₹6-18 LPA</span>
+          </div>
+        </div>
+        
+        <a href="/roadmap/UX/UI Designer" style="display: block; width: 100%; background: linear-gradient(135deg, #f6ad55, #ed8936); color: white; text-align: center; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+          View Roadmap →
+        </a>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="/career_insights" style="display: inline-block; background: white; color: #667eea; padding: 1rem 2.5rem; border-radius: 12px; font-weight: 600; font-size: 1.125rem; text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,0.2); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        <i class="fas fa-compass mr-2"></i> Explore All Career Paths
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding: 5rem 0;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+    <div class="cta">
+      <h2 class="cta-title">Ready to Start Your Career Journey?</h2>
+      <p class="cta-subtitle">Join thousands of students who found their dream careers</p>
+      
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <a href="/register" class="btn btn-primary" style="padding: 1rem 2rem;">
+          <i class="fas fa-user-plus"></i> Create Account
+        </a>
+        <a href="/quiz" class="btn btn-secondary" style="padding: 1rem 2rem;">
+          <i class="fas fa-clipboard-list"></i> Take Quiz
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.fade-in-up, .slide-in-right').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.8s ease-out';
+    observer.observe(el);
+  });
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.querySelector('.navbar')?.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // 3D card effect
+  document.querySelectorAll('.card-3d').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      card.style.transform = `perspective(1000px) rotateX(${-y/10}deg) rotateY(${x/10}deg) scale3d(1.05, 1.05, 1.05)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    });
+  });
+
+  // Add scroll progress indicator
+  const progressBar = document.createElement('div');
+  progressBar.className = 'fixed top-0 left-0 h-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 z-50 transition-all duration-300';
+  progressBar.style.width = '0%';
+  document.body.appendChild(progressBar);
+
+  window.addEventListener('scroll', () => {
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  });
+
+  // Feature cards hover effect
+  document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-10px)';
+      this.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+    });
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
+      this.style.boxShadow = '';
+    });
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href !== '#' && document.querySelector(href)) {
+        e.preventDefault();
+        document.querySelector(href).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Add parallax effect to hero section
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrolled = window.pageYOffset;
+        const heroSection = document.querySelector('section');
+        if (heroSection && scrolled < window.innerHeight) {
+          heroSection.style.transform = `translateY(${scrolled * 0.3}px)`;
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+});
+</script>
+{% endblock %}

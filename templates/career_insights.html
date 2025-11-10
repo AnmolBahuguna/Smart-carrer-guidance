@@ -1,0 +1,454 @@
+{% extends "base.html" %}
+
+{% block title %}Career Insights - SmartCareer{% endblock %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+/* Dynamic color classes */
+.border-color-indigo { border-color: #6366f1 !important; }
+.border-color-purple { border-color: #9333ea !important; }
+.border-color-blue { border-color: #3b82f6 !important; }
+.border-color-green { border-color: #10b981 !important; }
+.border-color-pink { border-color: #ec4899 !important; }
+
+.bg-color-indigo { background-color: #eef2ff !important; color: #6366f1 !important; }
+.bg-color-purple { background-color: #faf5ff !important; color: #9333ea !important; }
+.bg-color-blue { background-color: #eff6ff !important; color: #3b82f6 !important; }
+.bg-color-green { background-color: #f0fdf4 !important; color: #10b981 !important; }
+.bg-color-pink { background-color: #fdf2f8 !important; color: #ec4899 !important; }
+
+.bar-color-indigo { background: linear-gradient(to right, #6366f1, #4f46e5) !important; }
+.bar-color-purple { background: linear-gradient(to right, #9333ea, #7e22ce) !important; }
+.bar-color-blue { background: linear-gradient(to right, #3b82f6, #2563eb) !important; }
+.bar-color-green { background: linear-gradient(to right, #10b981, #059669) !important; }
+.bar-color-pink { background: linear-gradient(to right, #ec4899, #db2777) !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12" data-aos="fade-up">
+            <div class="inline-block bg-purple-100 text-purple-600 p-4 rounded-full mb-4">
+                <i class="fas fa-chart-line text-4xl"></i>
+            </div>
+            <h1 class="text-4xl font-bold mb-4 gradient-text">Career Insights & Market Trends</h1>
+            <p class="text-gray-600 text-lg">Explore salary data, job growth, and industry trends</p>
+        </div>
+
+        <!-- Trending Careers -->
+        <div class="mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-6">🔥 Trending Careers 2025</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {% for career in insights.trending_careers %}
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2">{{ career.name }}</h3>
+                            <div class="flex items-center gap-4 text-sm flex-wrap">
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-semibold">
+                                    <i class="fas fa-arrow-up mr-1"></i>{{ career.growth }}
+                                </span>
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">
+                                    {{ career.salary }}/year
+                                </span>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg text-sm font-bold">
+                            {{ career.demand }}
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mt-4">
+                        <a href="/roadmap/{{ career.name }}" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition text-sm font-medium">
+                            View Roadmap
+                        </a>
+                        <a href="/chatbot" class="flex-1 bg-gray-200 text-gray-700 text-center py-2 rounded-lg hover:bg-gray-300 transition text-sm font-medium">
+                            Ask AI
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Skill Categories Overview -->
+        <div class="mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-6">📚 Skill Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {% for category in insights.skill_categories %}
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg p-6 text-white hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl mb-3">
+                        <i class="{{ category.icon }}"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">{{ category.name }}</h3>
+                    <p class="text-indigo-100 text-sm mb-3">{{ category.count }} Essential Skills</p>
+                    <div class="flex flex-wrap gap-1">
+                        {% for skill in category.skills[:3] %}
+                        <span class="bg-white bg-opacity-20 text-xs px-2 py-1 rounded">{{ skill }}</span>
+                        {% endfor %}
+                        {% if category.skills|length > 3 %}
+                        <span class="bg-white bg-opacity-20 text-xs px-2 py-1 rounded">+{{ category.skills|length - 3 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Top Skills in Demand -->
+        <div class="mb-12" data-aos="fade-up">
+            <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                <h2 class="text-3xl font-bold">💡 Top 15 Skills in Demand 2025</h2>
+                <div class="flex gap-2 flex-wrap">
+                    <button onclick="filterSkills('all')" class="filter-btn active px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition">
+                        All Skills
+                    </button>
+                    <button onclick="filterSkills('Beginner')" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition">
+                        Beginner
+                    </button>
+                    <button onclick="filterSkills('Intermediate')" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition">
+                        Intermediate
+                    </button>
+                    <button onclick="filterSkills('Advanced')" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition">
+                        Advanced
+                    </button>
+                </div>
+            </div>
+            
+            <div id="skillsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for skill in insights.top_skills %}
+                <div class="skill-card bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition duration-300 border-l-4 border-indigo-500" data-difficulty="{{ skill.difficulty }}" data-color="{{ skill.color }}">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-indigo-100 text-indigo-600 w-12 h-12 rounded-lg flex items-center justify-center text-2xl skill-icon" data-color="{{ skill.color }}">
+                            <i class="{{ skill.icon }}"></i>
+                        </div>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                                {{ skill.demand }}% Demand
+                            </span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">
+                                {{ skill.difficulty }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Name -->
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ skill.skill }}</h3>
+                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ skill.description }}</p>
+
+                    <!-- Category Badge -->
+                    <div class="mb-4">
+                        <span class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
+                            <i class="fas fa-tag mr-1"></i>{{ skill.category }}
+                        </span>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-3 gap-3 mb-4">
+                        <div class="text-center bg-green-50 rounded-lg p-2">
+                            <p class="text-xs text-gray-600 font-medium">Salary</p>
+                            <p class="text-sm font-bold text-green-700">{{ skill.avg_salary }}</p>
+                        </div>
+                        <div class="text-center bg-blue-50 rounded-lg p-2">
+                            <p class="text-xs text-gray-600 font-medium">Jobs</p>
+                            <p class="text-sm font-bold text-blue-700">{{ skill.jobs }}</p>
+                        </div>
+                        <div class="text-center bg-orange-50 rounded-lg p-2">
+                            <p class="text-xs text-gray-600 font-medium">Growth</p>
+                            <p class="text-sm font-bold text-orange-700">{{ skill.growth }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Demand Bar -->
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-xs text-gray-600 font-medium">Market Demand</span>
+                            <span class="text-xs text-indigo-600 font-bold">{{ skill.demand }}%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                            <div class="bg-indigo-600 h-2 rounded-full transition-all duration-1000 demand-bar" data-width="{{ skill.demand }}" data-color="{{ skill.color }}"></div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2">
+                        <a href="/chatbot" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition text-sm font-medium">
+                            <i class="fas fa-graduation-cap mr-1"></i>Learn Path
+                        </a>
+                        <button onclick="saveSkill(this, '{{ skill.skill }}')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Industries Overview -->
+        <div class="mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-6">🏢 Top Industries Hiring</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for industry in insights.industries %}
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover border-t-4 border-indigo-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-indigo-100 to-purple-100 w-14 h-14 rounded-full flex items-center justify-center">
+                            <i class="fas fa-briefcase text-2xl text-indigo-600"></i>
+                        </div>
+                        <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold">
+                            <i class="fas fa-arrow-up mr-1"></i>{{ industry.growth }}
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-gray-900">{{ industry.name }}</h3>
+                    <div class="flex items-baseline gap-2 mb-3">
+                        <p class="text-3xl font-bold text-indigo-600">{{ industry.jobs }}</p>
+                        <p class="text-sm text-gray-600">Jobs Available</p>
+                    </div>
+                    <a href="/chatbot" class="block w-full bg-indigo-50 text-indigo-700 text-center py-2 rounded-lg hover:bg-indigo-100 transition text-sm font-medium">
+                        <i class="fas fa-search mr-1"></i>Explore Jobs
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Salary Comparison Chart -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-6">💰 Average Salary Comparison</h2>
+            <div class="relative" style="height: 400px;">
+                <canvas id="salaryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Job Market Tips -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg p-8 text-white" data-aos="fade-up">
+            <h3 class="text-2xl font-bold mb-6 text-center">📈 Job Market Tips</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="bg-white bg-opacity-20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-code text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Learn in-Demand Skills</h4>
+                    <p class="text-sm text-indigo-100">Focus on skills with high market demand like AI, Cloud, and Data Science</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-white bg-opacity-20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-network-wired text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Build Your Network</h4>
+                    <p class="text-sm text-indigo-100">Connect with professionals in your target industry</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-white bg-opacity-20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-rocket text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold mb-2">Stay Updated</h4>
+                    <p class="text-sm text-indigo-100">Keep learning and adapting to industry changes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Chart.js for salary comparison
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('salaryChart');
+    if (!ctx) return;
+    
+    new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['AI/ML Engineer', 'Cloud Architect', 'Data Scientist', 'Cybersecurity', 'DevOps Engineer', 'Full Stack Dev', 'Blockchain Dev'],
+            datasets: [{
+                label: 'Average Salary ($1000s)',
+                data: [120, 140, 115, 110, 105, 95, 130],
+                backgroundColor: [
+                    'rgba(99, 102, 241, 0.8)',
+                    'rgba(139, 92, 246, 0.8)',
+                    'rgba(168, 85, 247, 0.8)',
+                    'rgba(236, 72, 153, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(16, 185, 129, 0.8)',
+                    'rgba(245, 158, 11, 0.8)'
+                ],
+                borderColor: [
+                    'rgb(99, 102, 241)',
+                    'rgb(139, 92, 246)',
+                    'rgb(168, 85, 247)',
+                    'rgb(236, 72, 153)',
+                    'rgb(59, 130, 246)',
+                    'rgb(16, 185, 129)',
+                    'rgb(245, 158, 11)'
+                ],
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$' + context.parsed.y + ',000/year';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) { 
+                            return '$' + value + 'K'; 
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Animate demand bars on page load
+    setTimeout(function() {
+        document.querySelectorAll('.demand-bar').forEach(function(bar) {
+            const width = bar.getAttribute('data-width');
+            const color = bar.getAttribute('data-color') || 'indigo';
+            bar.style.width = width + '%';
+            bar.classList.add('bar-color-' + color);
+        });
+    }, 100);
+
+    // Apply dynamic colors to skill cards
+    document.querySelectorAll('.skill-card').forEach(function(card) {
+        const color = card.getAttribute('data-color') || 'indigo';
+        card.classList.add('border-color-' + color);
+        
+        const icon = card.querySelector('.skill-icon');
+        if (icon) {
+            icon.classList.add('bg-color-' + color);
+        }
+    });
+});
+
+// Filter skills by difficulty level
+function filterSkills(difficulty) {
+    const cards = document.querySelectorAll('.skill-card');
+    const buttons = document.querySelectorAll('.filter-btn');
+    
+    // Update button states
+    buttons.forEach(function(btn) {
+        if (btn.textContent.trim() === difficulty || (difficulty === 'all' && btn.textContent.trim() === 'All Skills')) {
+            btn.classList.remove('bg-gray-200', 'text-gray-700');
+            btn.classList.add('active', 'bg-indigo-600', 'text-white');
+        } else {
+            btn.classList.remove('active', 'bg-indigo-600', 'text-white');
+            btn.classList.add('bg-gray-200', 'text-gray-700');
+        }
+    });
+    
+    // Filter cards
+    cards.forEach(function(card) {
+        if (difficulty === 'all') {
+            card.style.display = 'block';
+        } else {
+            if (card.getAttribute('data-difficulty') === difficulty) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+    });
+}
+
+// Save skill to favorites
+function saveSkill(btn, skillName) {
+    const icon = btn.querySelector('i');
+    icon.classList.toggle('far');
+    icon.classList.toggle('fas');
+    
+    const message = icon.classList.contains('fas') ? 
+        skillName + ' saved to your learning path!' : 
+        skillName + ' removed from learning path';
+    
+    showNotification(message);
+}
+
+// Show notification
+function showNotification(message) {
+    const notif = document.createElement('div');
+    notif.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-in';
+    notif.innerHTML = '<i class="fas fa-check-circle mr-2"></i>' + message;
+    document.body.appendChild(notif);
+    
+    setTimeout(function() {
+        notif.style.opacity = '0';
+        notif.style.transform = 'translateX(400px)';
+        notif.style.transition = 'all 0.3s ease';
+        setTimeout(function() { 
+            notif.remove(); 
+        }, 300);
+    }, 3000);
+}
+
+// Animate demand bars on scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+            const bar = entry.target.querySelector('.demand-bar');
+            if (bar && !bar.style.width) {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.skill-card').forEach(function(card) {
+    observer.observe(card);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Register - SmartCareer{% endblock %}
+
+{% block content %}
+<section class="py-12 min-h-screen flex items-center bg-gray-50">
+    <div class="max-w-md mx-auto w-full px-4">
+        <div class="bg-white rounded-xl shadow-2xl p-8" data-aos="fade-up">
+            <!-- Logo/Icon -->
+            <div class="text-center mb-8">
+                <div class="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-full mb-4">
+                    <i class="fas fa-user-plus text-4xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold gradient-text">Create Account</h2>
+                <p class="text-gray-600 mt-2">Start your career journey today!</p>
+            </div>
+            
+            <!-- Register Form -->
+            <form method="POST" action="/register" class="space-y-6">
+                <!-- Name -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-user mr-2"></i>Full Name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 transition"
+                        placeholder="John Doe"
+                    >
+                </div>
+                
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-envelope mr-2"></i>Email Address
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 transition"
+                        placeholder="your.email@example.com"
+                    >
+                </div>
+                
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-lock mr-2"></i>Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required
+                        minlength="6"
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 transition"
+                        placeholder="••••••••"
+                    >
+                    <p class="mt-1 text-xs text-gray-500">Must be at least 6 characters</p>
+                </div>
+                
+                <!-- Terms & Conditions -->
+                <div>
+                    <label class="flex items-start">
+                        <input type="checkbox" required class="mt-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                        <span class="ml-2 text-sm text-gray-600">
+                            I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-700">Terms of Service</a> 
+                            and <a href="#" class="text-indigo-600 hover:text-indigo-700">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+                
+                <!-- Submit Button -->
+                <button 
+                    type="submit" 
+                    class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-lg"
+                >
+                    <i class="fas fa-user-plus mr-2"></i>Create Account
+                </button>
+            </form>
+            
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-gray-500">Or sign up with</span>
+                </div>
+            </div>
+            
+            <!-- Social Sign Up -->
+            <div class="grid grid-cols-2 gap-4">
+                <button class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                    <i class="fab fa-google text-red-500 mr-2"></i>
+                    <span class="text-sm font-medium text-gray-700">Google</span>
+                </button>
+                <button class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                    <i class="fab fa-github text-gray-800 mr-2"></i>
+                    <span class="text-sm font-medium text-gray-700">GitHub</span>
+                </button>
+            </div>
+            
+            <!-- Login Link -->
+            <p class="mt-6 text-center text-gray-600">
+                Already have an account? 
+                <a href="/login" class="text-indigo-600 font-semibold hover:text-indigo-700">Login here</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

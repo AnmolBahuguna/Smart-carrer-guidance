@@ -1,0 +1,431 @@
+{% extends "base.html" %}
+
+{% block title %}Scholarships - SmartCareer{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12" data-aos="fade-up">
+            <div class="inline-block bg-yellow-100 text-yellow-600 p-4 rounded-full mb-4">
+                <i class="fas fa-award text-4xl"></i>
+            </div>
+            <h1 class="text-4xl font-bold mb-4 gradient-text">Scholarship Opportunities</h1>
+            <p class="text-gray-600 text-lg">Find financial aid to support your education</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center" data-aos="fade-up">
+                <i class="fas fa-dollar-sign text-4xl text-green-600 mb-3"></i>
+                <h3 class="text-3xl font-bold text-gray-800">$2.5B+</h3>
+                <p class="text-gray-600">Total Available</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-users text-4xl text-indigo-600 mb-3"></i>
+                <h3 class="text-3xl font-bold text-gray-800">500K+</h3>
+                <p class="text-gray-600">Students Helped</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-graduation-cap text-4xl text-purple-600 mb-3"></i>
+                <h3 class="text-3xl font-bold text-gray-800">1000+</h3>
+                <p class="text-gray-600">Opportunities</p>
+            </div>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="max-w-7xl mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <input type="text" id="searchInput" placeholder="Search scholarships..." 
+                           class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    
+                    <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">All Categories</option>
+                        <option value="Government">Government</option>
+                        <option value="Private">Private</option>
+                        <option value="State">State Level</option>
+                    </select>
+                    
+                    <select id="educationFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">All Education Levels</option>
+                        <option value="Post-Matric">Post-Matric</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="Diploma/Degree">Diploma/Degree</option>
+                        <option value="Any">Any Level</option>
+                    </select>
+                    
+                    <button onclick="searchScholarships()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-search mr-2"></i>Search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Data Status -->
+        <div class="max-w-7xl mb-6">
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse mr-3"></div>
+                    <span class="text-green-700 font-medium">
+                        <i class="fas fa-sync-alt mr-2"></i>Live Data - Last Updated: <span id="lastUpdated">Loading...</span>
+                    </span>
+                </div>
+                <button onclick="refreshData()" class="text-green-600 hover:text-green-700 transition">
+                    <i class="fas fa-refresh mr-1"></i>Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Scholarships Content -->
+        <div class="max-w-7xl">
+            <div id="scholarshipsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Scholarship cards will be loaded here dynamically -->
+                <div class="col-span-full text-center py-12">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p class="text-gray-600">Loading real-time scholarships...</p>
+                </div>
+            </div>
+            
+            <!-- No Results Message -->
+            <div id="noResults" class="hidden col-span-full text-center py-12">
+                <i class="fas fa-search text-gray-400 text-4xl mb-4"></i>
+                <p class="text-gray-600 text-lg">No scholarships found matching your criteria.</p>
+                <p class="text-gray-500 mt-2">Try adjusting your filters or search terms.</p>
+            </div>
+        </div>
+
+        <!-- Scholarship Cards -->
+        <div class="space-y-6">
+            {% for scholarship in scholarships %}
+            <div class="bg-white rounded-xl shadow-lg p-6 card-hover" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="flex-1 mb-4 md:mb-0">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="bg-yellow-100 text-yellow-600 w-12 h-12 rounded-full flex items-center justify-center">
+                                <i class="fas fa-award text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold">{{ scholarship.name }}</h3>
+                                <p class="text-green-600 font-bold text-lg">{{ scholarship.amount }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <p class="text-sm text-gray-600"><i class="fas fa-calendar mr-2"></i>Deadline</p>
+                                <p class="font-semibold">{{ scholarship.deadline }}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-600"><i class="fas fa-check-circle mr-2"></i>Eligibility</p>
+                                <p class="font-semibold">{{ scholarship.eligibility }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <a href="{{ scholarship.url }}" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition text-center font-semibold">
+                            <i class="fas fa-external-link-alt mr-2"></i>Apply Now
+                        </a>
+                        <button class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition font-semibold">
+                            <i class="fas fa-bookmark mr-2"></i>Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Tips Section -->
+        <div class="mt-12 bg-blue-50 border-2 border-blue-200 rounded-xl p-8" data-aos="fade-up">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-lightbulb text-yellow-500 mr-3 text-3xl"></i>
+                Scholarship Application Tips
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                    <div>
+                        <h4 class="font-bold mb-1">Start Early</h4>
+                        <p class="text-gray-700">Begin your search 6-12 months before deadlines</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                    <div>
+                        <h4 class="font-bold mb-1">Personalize Essays</h4>
+                        <p class="text-gray-700">Tailor each application to the specific scholarship</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                    <div>
+                        <h4 class="font-bold mb-1">Get Strong References</h4>
+                        <p class="text-gray-700">Ask teachers and mentors who know you well</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                    <div>
+                        <h4 class="font-bold mb-1">Apply to Many</h4>
+                        <p class="text-gray-700">Don't limit yourself - apply to multiple scholarships</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg p-8 text-white text-center" data-aos="fade-up">
+            <h3 class="text-2xl font-bold mb-4">Need Help with Applications?</h3>
+            <p class="mb-6">Our AI mentor can help you find scholarships that match your profile</p>
+            <a href="/chatbot" class="bg-white text-indigo-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition inline-block font-semibold">
+                <i class="fas fa-robot mr-2"></i>Get Personalized Help
+            </a>
+        </div>
+    </div>
+</section>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+
+    // Global variables
+    let allScholarships = [];
+    let filteredScholarships = [];
+
+    // Load scholarships on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        loadScholarships();
+    });
+
+    // Load scholarships from API
+    async function loadScholarships() {
+        try {
+            showLoading();
+            const response = await fetch('/api/scholarships');
+            const data = await response.json();
+            
+            if (data.success) {
+                allScholarships = data.data;
+                filteredScholarships = allScholarships;
+                displayScholarships(allScholarships);
+                updateLastUpdated(data.last_updated);
+            } else {
+                showError('Failed to load scholarships');
+            }
+        } catch (error) {
+            console.error('Error loading scholarships:', error);
+            showError('Error loading scholarships. Please try again.');
+        }
+    }
+
+    // Display scholarships in the container
+    function displayScholarships(scholarships) {
+        const container = document.getElementById('scholarshipsContainer');
+        const noResults = document.getElementById('noResults');
+        
+        if (scholarships.length === 0) {
+            container.innerHTML = '';
+            noResults.classList.remove('hidden');
+            return;
+        }
+        
+        noResults.classList.add('hidden');
+        container.innerHTML = scholarships.map(scholarship => createScholarshipCard(scholarship)).join('');
+        
+        // Re-initialize AOS for new elements
+        AOS.refresh();
+    }
+
+    // Create scholarship card HTML
+    function createScholarshipCard(scholarship) {
+        const urgencyClass = getUrgencyClass(scholarship.deadline);
+        const categoryIcon = getCategoryIcon(scholarship.category);
+        const daysLeft = calculateDaysLeft(scholarship.deadline);
+        
+        return `
+            <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 ${getCategoryColor(scholarship.category)} rounded-full flex items-center justify-center">
+                        <i class="${categoryIcon}"></i>
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <h3 class="text-lg font-semibold text-gray-800">${scholarship.title}</h3>
+                        <p class="text-sm text-gray-500">${scholarship.provider}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full ${urgencyClass}">
+                            ${daysLeft} days left
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="space-y-3 mb-4">
+                    <p class="text-gray-600 text-sm line-clamp-2">${scholarship.eligibility}</p>
+                    
+                    <div class="flex items-center gap-4 text-sm">
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-rupee-sign mr-1"></i>
+                            <span class="font-medium text-green-600">${scholarship.amount}</span>
+                        </div>
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            <span>${scholarship.state}</span>
+                        </div>
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-graduation-cap mr-1"></i>
+                            <span>${scholarship.education_level}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="text-sm">
+                        <span class="text-gray-500">Deadline: </span>
+                        <span class="font-medium text-red-600">${formatDate(scholarship.deadline)}</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="saveScholarship('${scholarship.id}')" class="text-gray-400 hover:text-yellow-500 transition" title="Save for later">
+                            <i class="fas fa-bookmark"></i>
+                        </button>
+                        <a href="${scholarship.link}" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                            Apply Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Search and filter scholarships
+    function searchScholarships() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const category = document.getElementById('categoryFilter').value;
+        const education = document.getElementById('educationFilter').value;
+        
+        filteredScholarships = allScholarships.filter(scholarship => {
+            const matchesSearch = !searchTerm || 
+                scholarship.title.toLowerCase().includes(searchTerm) ||
+                scholarship.provider.toLowerCase().includes(searchTerm) ||
+                scholarship.eligibility.toLowerCase().includes(searchTerm);
+            
+            const matchesCategory = !category || scholarship.category === category;
+            const matchesEducation = !education || scholarship.education_level === education;
+            
+            return matchesSearch && matchesCategory && matchesEducation;
+        });
+        
+        displayScholarships(filteredScholarships);
+    }
+
+    // Refresh data
+    function refreshData() {
+        loadScholarships();
+    }
+
+    // Helper functions
+    function getUrgencyClass(deadline) {
+        const daysLeft = calculateDaysLeft(deadline);
+        if (daysLeft <= 7) return 'bg-red-100 text-red-700';
+        if (daysLeft <= 30) return 'bg-yellow-100 text-yellow-700';
+        return 'bg-green-100 text-green-700';
+    }
+
+    function getCategoryIcon(category) {
+        const icons = {
+            'Government': 'fas fa-building text-blue-600',
+            'Private': 'fas fa-briefcase text-purple-600',
+            'State': 'fas fa-map text-green-600'
+        };
+        return icons[category] || 'fas fa-award text-gray-600';
+    }
+
+    function getCategoryColor(category) {
+        const colors = {
+            'Government': 'bg-blue-100',
+            'Private': 'bg-purple-100',
+            'State': 'bg-green-100'
+        };
+        return colors[category] || 'bg-gray-100';
+    }
+
+    function calculateDaysLeft(deadline) {
+        const today = new Date();
+        const deadlineDate = new Date(deadline);
+        const diffTime = deadlineDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return Math.max(0, diffDays);
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-IN', { 
+            day: 'numeric', 
+            month: 'short', 
+            year: 'numeric' 
+        });
+    }
+
+    function updateLastUpdated(timestamp) {
+        const element = document.getElementById('lastUpdated');
+        if (timestamp) {
+            const date = new Date(timestamp);
+            element.textContent = date.toLocaleString('en-IN');
+        }
+    }
+
+    function showLoading() {
+        const container = document.getElementById('scholarshipsContainer');
+        container.innerHTML = `
+            <div class="col-span-full text-center py-12">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p class="text-gray-600">Loading real-time scholarships...</p>
+            </div>
+        `;
+    }
+
+    function showError(message) {
+        const container = document.getElementById('scholarshipsContainer');
+        container.innerHTML = `
+            <div class="col-span-full text-center py-12">
+                <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+                <p class="text-red-600 text-lg">${message}</p>
+                <button onclick="loadScholarships()" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Try Again
+                </button>
+            </div>
+        `;
+    }
+
+    function saveScholarship(scholarshipId) {
+        // Implement save functionality
+        const scholarship = allScholarships.find(s => s.id === scholarshipId);
+        if (scholarship) {
+            // Save to localStorage or backend
+            let savedScholarships = JSON.parse(localStorage.getItem('savedScholarships') || '[]');
+            if (!savedScholarships.find(s => s.id === scholarshipId)) {
+                savedScholarships.push(scholarship);
+                localStorage.setItem('savedScholarships', JSON.stringify(savedScholarships));
+                
+                // Show success message
+                const button = event.target.closest('button');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check text-yellow-500"></i>';
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                }, 2000);
+            }
+        }
+    }
+
+    // Add event listeners for real-time search
+    document.getElementById('searchInput').addEventListener('input', searchScholarships);
+    document.getElementById('categoryFilter').addEventListener('change', searchScholarships);
+    document.getElementById('educationFilter').addEventListener('change', searchScholarships);
+</script>
+{% endblock %}
