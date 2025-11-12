@@ -1,0 +1,90 @@
+/* ============================================
+   RESOURCES DROPDOWN FIX
+   Ensures Resources menu works properly
+   ============================================ */
+
+/* Make sure dropdown container is positioned correctly */
+.navbar .relative.group {
+    position: relative !important;
+    z-index: 100;
+}
+
+/* Resources button styling */
+.navbar .relative.group > button {
+    position: relative;
+    z-index: 101;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+/* Dropdown menu positioning and visibility */
+.navbar .relative.group .absolute {
+    position: absolute !important;
+    left: 0 !important;
+    top: 100% !important;
+    margin-top: 0.5rem !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+}
+
+/* Show dropdown on hover - ONLY ON DESKTOP */
+@media (min-width: 769px) {
+    .navbar .relative.group:hover .absolute {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
+    }
+}
+
+/* Ensure all dropdown links are clickable */
+.navbar .relative.group .absolute a {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 10000 !important;
+    position: relative;
+}
+
+/* Prevent navbar colors from overriding dropdown */
+.navbar .relative.group .absolute a {
+    background: transparent !important;
+}
+
+.navbar .relative.group .absolute a:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Fix text colors in dropdown */
+.navbar .relative.group .absolute a * {
+    pointer-events: none !important;
+}
+
+/* Ensure dropdown stays open when hovering over it - ONLY ON DESKTOP */
+@media (min-width: 769px) {
+    .navbar .relative.group .absolute:hover {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+}
+
+/* Add transition for smooth appearance */
+.navbar .relative.group .absolute {
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease !important;
+}
+
+/* Initial hidden state - CRITICAL */
+.navbar .relative.group .absolute,
+.navbar .group .absolute {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+    transform: translateY(-10px);
+    pointer-events: none !important;
+}
+
+/* Icon color fix */
+.navbar .relative.group button i {
+    color: inherit !important;
+}

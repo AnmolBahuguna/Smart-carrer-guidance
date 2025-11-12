@@ -1,0 +1,480 @@
+/* ============================================================================
+   COMPREHENSIVE TEXT VISIBILITY FIX
+   Ensures ALL text is visible with proper contrast across the entire website
+   This file MUST be loaded LAST to override all other CSS
+   ============================================================================ */
+
+/* ============ CRITICAL FIX: REMOVE TRANSPARENT TEXT ============ */
+/* Override all transparent text fills that make content invisible */
+
+/* All headings must have solid fallback color */
+h1, h2, h3, h4, h5, h6,
+.hero-title,
+.gradient-text,
+section h2,
+.card h3,
+.feature-card h3 {
+    /* Keep gradient for visual effect but ensure text is visible */
+    color: #FFFFFF !important;
+    /* Override transparent fill with a fallback */
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* Optional gradient overlay for headings that should still look fancy */
+/* But with readable fallback */
+h1.with-gradient, 
+h2.with-gradient,
+.gradient-heading {
+    background: linear-gradient(135deg, #6366F1 0%, #EC4899 50%, #14F195 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* Fallback for browsers that don't support background-clip */
+    color: #FFFFFF;
+}
+
+/* Ensure navbar logo/brand text is always visible */
+.navbar .gradient-text,
+.navbar span.text-2xl {
+    -webkit-text-fill-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+/* ============ BODY TEXT VISIBILITY ============ */
+/* All paragraph text must be readable */
+p, span, div, li, a, label, 
+.text-base, .text-sm, .text-lg, .text-xl,
+.hero-subtitle {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+    background: transparent !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+}
+
+/* Smaller/secondary text */
+small, .text-xs, .text-muted, .text-gray-500, .text-gray-400 {
+    color: #9CA3AF !important;
+    -webkit-text-fill-color: #9CA3AF !important;
+}
+
+/* ============ CARDS & CONTAINERS ============ */
+/* Ensure cards have proper backgrounds for text contrast */
+.card, .feature-card, .card-3d, 
+[class*="card"],
+.bg-white,
+.rounded-lg, .rounded-xl, .rounded-2xl {
+    background: #1A1F3A !important;
+    border: 1px solid #2D3548;
+}
+
+/* Card text must be visible */
+.card p, .card span, .card div,
+.feature-card p, .feature-card span, .feature-card div {
+    color: #D1D5DB !important;
+    -webkit-text-fill-color: #D1D5DB !important;
+}
+
+/* Card headings */
+.card h3, .card h4,
+.feature-card h3, .feature-card h4 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ HERO SECTION ============ */
+.hero, .hero-section {
+    background: #0A0E27 !important;
+    position: relative;
+}
+
+.hero h1, .hero-title {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    text-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+    font-size: 3.5rem;
+}
+
+.hero p, .hero-subtitle, .hero-description {
+    color: #D1D5DB !important;
+    -webkit-text-fill-color: #D1D5DB !important;
+}
+
+/* Hero stats/numbers */
+.hero .stat,
+.hero [style*="font-size: 2rem"] {
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+}
+
+/* ============ SECTIONS ============ */
+section {
+    background: transparent;
+    position: relative;
+}
+
+section.bg-gray-50,
+section.py-20 {
+    background: rgba(26, 31, 58, 0.3) !important;
+}
+
+section h2 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+section p {
+    color: #D1D5DB !important;
+    -webkit-text-fill-color: #D1D5DB !important;
+    text-align: center;
+}
+
+/* ============ BUTTONS ============ */
+.btn, button, a.btn {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6366F1 0%, #764ba2 100%) !important;
+    color: #FFFFFF !important;
+}
+
+.btn-secondary, .btn-outline {
+    color: #FFFFFF !important;
+    border-color: #6366F1 !important;
+}
+
+.btn-ghost {
+    color: #D1D5DB !important;
+}
+
+/* ============ FORMS ============ */
+input, textarea, select {
+    background: #1A1F3A !important;
+    color: #FFFFFF !important;
+    border: 1px solid #2D3548 !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #6B7280 !important;
+}
+
+label {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+}
+
+/* ============ TABLES ============ */
+table {
+    background: #1A1F3A !important;
+}
+
+th {
+    background: #252B4A !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+td {
+    color: #D1D5DB !important;
+    -webkit-text-fill-color: #D1D5DB !important;
+}
+
+/* ============ FOOTER ============ */
+footer {
+    background: #0A0E27 !important;
+}
+
+footer h3, footer h4 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+footer p, footer span, footer div, footer li {
+    color: #9CA3AF !important;
+    -webkit-text-fill-color: #9CA3AF !important;
+}
+
+footer a {
+    color: #9CA3AF !important;
+    -webkit-text-fill-color: #9CA3AF !important;
+}
+
+footer a:hover {
+    color: #14F195 !important;
+    -webkit-text-fill-color: #14F195 !important;
+}
+
+/* ============ NAVIGATION ============ */
+.navbar {
+    background: rgba(10, 14, 39, 0.95) !important;
+    backdrop-filter: blur(20px);
+}
+
+.navbar a,
+.navbar button,
+.nav-link {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.nav-link:hover {
+    color: #14F195 !important;
+    -webkit-text-fill-color: #14F195 !important;
+}
+
+/* ============ MOBILE MENU ============ */
+#mobile-menu {
+    background: #1A1F3A !important;
+}
+
+#mobile-menu a {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+#mobile-menu a:hover {
+    color: #14F195 !important;
+    background: rgba(99, 102, 241, 0.1) !important;
+}
+
+/* ============ BADGES & TAGS ============ */
+.badge, .tag, [class*="badge"] {
+    background: linear-gradient(135deg, #6366F1 0%, #764ba2 100%) !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ QUIZ & INTERACTIVE ELEMENTS ============ */
+/* Radio buttons and checkboxes labels */
+label[for], 
+.quiz-option label,
+.form-check-label {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+}
+
+/* Quiz questions */
+.quiz-question,
+.question-text {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    background: #1A1F3A;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* ============ CHATBOT ============ */
+.chat-message,
+.message-content {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+}
+
+.chat-bubble {
+    background: #1A1F3A !important;
+    color: #E5E7EB !important;
+}
+
+/* ============ DASHBOARD ============ */
+.dashboard-card,
+.stat-card {
+    background: #1A1F3A !important;
+    border: 1px solid #2D3548;
+}
+
+.dashboard-card h3,
+.stat-card h3 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.dashboard-card p,
+.stat-card p {
+    color: #D1D5DB !important;
+    -webkit-text-fill-color: #D1D5DB !important;
+}
+
+/* ============ LISTS ============ */
+ul, ol {
+    color: #E5E7EB;
+}
+
+ul li, ol li {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+}
+
+/* ============ LINKS ============ */
+a {
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+}
+
+a:hover {
+    color: #14F195 !important;
+    -webkit-text-fill-color: #14F195 !important;
+}
+
+/* ============ ICONS ============ */
+i, .fas, .fab, .far {
+    color: inherit !important;
+}
+
+/* ============ ALERTS & NOTIFICATIONS ============ */
+.alert, .notification, .toast {
+    background: #1A1F3A !important;
+    color: #E5E7EB !important;
+    border: 1px solid #2D3548;
+}
+
+/* ============ CODE BLOCKS ============ */
+code, pre {
+    background: #1A1F3A !important;
+    color: #14F195 !important;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+}
+
+/* ============ TOOLTIPS & POPOVERS ============ */
+.tooltip, .popover {
+    background: #1A1F3A !important;
+    color: #E5E7EB !important;
+    border: 1px solid #2D3548;
+}
+
+/* ============ MODALS ============ */
+.modal, .modal-content {
+    background: #0A0E27 !important;
+    color: #E5E7EB !important;
+}
+
+.modal h2, .modal h3 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ SPECIAL ELEMENTS ============ */
+/* Scholarships, Opportunities, etc. */
+.opportunity-card,
+.scholarship-card,
+.college-card {
+    background: #1A1F3A !important;
+    border: 1px solid #2D3548;
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.opportunity-card h3,
+.scholarship-card h3,
+.college-card h3 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.opportunity-card p,
+.scholarship-card p,
+.college-card p {
+    color: #D1D5DB !important;
+    -webkit-text-fill-color: #D1D5DB !important;
+}
+
+/* Deadline badges */
+.deadline, .days-left {
+    background: linear-gradient(135deg, #EC4899 0%, #EF4444 100%) !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+}
+
+/* ============ TAILWIND UTILITY OVERRIDES ============ */
+/* Override Tailwind classes that might cause visibility issues */
+.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+}
+
+.text-black {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.bg-white {
+    background: #1A1F3A !important;
+}
+
+.bg-gray-50, .bg-gray-100 {
+    background: rgba(26, 31, 58, 0.5) !important;
+}
+
+/* ============ ENSURE CONTRAST ============ */
+/* Add semi-transparent backgrounds where needed for readability */
+.text-overlay {
+    background: rgba(10, 14, 39, 0.8) !important;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Text on images needs contrast */
+.hero-content,
+.banner-text,
+.overlay-text {
+    background: rgba(10, 14, 39, 0.85);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+    body, * {
+        background: white !important;
+        color: black !important;
+        -webkit-text-fill-color: black !important;
+    }
+}
+
+/* ============ ACCESSIBILITY ============ */
+/* Ensure focus states are visible */
+*:focus {
+    outline: 2px solid #6366F1 !important;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    * {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+    }
+    
+    .card, .feature-card {
+        border: 2px solid #FFFFFF !important;
+    }
+}
+
+/* ============ RESPONSIVE FIXES ============ */
+@media (max-width: 768px) {
+    h1, .hero-title {
+        font-size: 2.5rem !important;
+    }
+    
+    h2 {
+        font-size: 2rem !important;
+    }
+    
+    /* Ensure mobile text is readable */
+    p, span, div {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+}

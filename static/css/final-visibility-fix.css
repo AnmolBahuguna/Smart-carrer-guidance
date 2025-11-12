@@ -1,0 +1,767 @@
+/* ============================================================================
+   FINAL COMPREHENSIVE TEXT VISIBILITY FIX
+   This file MUST be loaded LAST to override all other CSS
+   Fixes all text visibility issues including gradient text, opacity, and contrast
+   ============================================================================ */
+
+/* ============ CRITICAL: DISABLE ALL GRADIENT TEXT EFFECTS ============ */
+/* These are the main culprits causing invisible text */
+* {
+    -webkit-text-fill-color: inherit !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+}
+
+/* ============ BODY AND BASE ============ */
+body {
+    background: #F9FAFB !important;
+    color: #1F2937 !important;
+}
+
+/* ============ FORCE ALL TEXT VISIBLE ============ */
+/* Ensure ALL text has visible color and opacity */
+h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th, label, button, input, textarea, select {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ============ NAVBAR - Colorful Gradient Background ============ */
+.navbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%) !important;
+    background-size: 200% 200% !important;
+    animation: gradientShift 15s ease infinite !important;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ALL navbar text must be white and visible */
+/* EXCEPTION: Dropdown menus should have dark text on white background */
+.navbar,
+.navbar *:not(.relative.group .absolute *),
+.navbar h1,
+.navbar h2,
+.navbar h3,
+.navbar p,
+.navbar span:not(.relative.group .absolute *),
+.navbar div:not(.relative.group .absolute):not(.relative.group .absolute *),
+.navbar a:not(.relative.group .absolute *),
+.navbar button:not(.relative.group button),
+.navbar .gradient-text,
+.nav-link {
+    color: #FFFFFF !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+}
+
+/* Dropdown button should be white */
+.navbar .relative.group > button {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ HERO SECTION ============ */
+.hero,
+.hero-section,
+section.hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+    color: #FFFFFF !important;
+}
+
+/* ALL hero text must be white and visible */
+.hero *,
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero span,
+.hero div,
+.hero a,
+.hero-title,
+.hero-subtitle {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ============ HEADINGS - Always Visible ============ */
+h1, h2, h3, h4, h5, h6 {
+    color: #1F2937 !important;
+    font-weight: 700;
+    -webkit-text-fill-color: #1F2937 !important;
+    background: none !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+}
+
+/* Exception: Headings on gradient/dark backgrounds */
+.hero h1,
+.hero h2,
+.hero h3,
+.navbar h1,
+.navbar h2,
+.navbar h3,
+footer h1,
+footer h2,
+footer h3,
+[style*="background: linear-gradient"] h1,
+[style*="background: linear-gradient"] h2,
+[style*="background: linear-gradient"] h3,
+[class*="bg-gradient"] h1,
+[class*="bg-gradient"] h2,
+[class*="bg-gradient"] h3 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ PARAGRAPHS AND TEXT ============ */
+p, span, div, li {
+    color: #4B5563 !important;
+    -webkit-text-fill-color: #4B5563 !important;
+}
+
+/* Exception: Text on dark/gradient backgrounds */
+.hero p,
+.hero span,
+.hero div,
+.navbar p,
+.navbar span,
+.navbar div,
+footer p,
+footer span,
+footer div,
+footer li,
+[style*="background: linear-gradient"] p,
+[style*="background: linear-gradient"] span,
+[style*="background: linear-gradient"] div,
+[class*="bg-gradient"] p,
+[class*="bg-gradient"] span,
+[class*="bg-gradient"] div {
+    color: #F3F4F6 !important;
+    -webkit-text-fill-color: #F3F4F6 !important;
+}
+
+/* ============ LINKS ============ */
+a {
+    color: #6366F1 !important;
+    text-decoration: none;
+    -webkit-text-fill-color: #6366F1 !important;
+}
+
+a:hover {
+    color: #4F46E5 !important;
+    -webkit-text-fill-color: #4F46E5 !important;
+}
+
+/* Exception: Links on dark backgrounds */
+.navbar a,
+.nav-link,
+footer a {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.navbar a:hover,
+.nav-link:hover,
+footer a:hover {
+    color: #E0E7FF !important;
+    -webkit-text-fill-color: #E0E7FF !important;
+}
+
+/* ============ BUTTONS ============ */
+.btn,
+button,
+[type="button"],
+[type="submit"] {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary,
+button.btn-primary {
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%) !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.btn-secondary {
+    background: #FFFFFF !important;
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+    border: 2px solid #6366F1 !important;
+}
+
+.btn *,
+button * {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+}
+
+/* ============ CARDS ============ */
+.card,
+.feature-card,
+.card-3d,
+[class*="card"] {
+    background: #FFFFFF !important;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card h3,
+.feature-card h3,
+.card-3d h3,
+[class*="card"] h3 {
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+    margin-bottom: 1rem;
+}
+
+.card p,
+.feature-card p,
+.card-3d p,
+[class*="card"] p {
+    color: #4B5563 !important;
+    -webkit-text-fill-color: #4B5563 !important;
+}
+
+/* ============ FEATURE ICONS ============ */
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%) !important;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.feature-icon i,
+.feature-icon * {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    font-size: 2rem;
+}
+
+/* ============ FOOTER ============ */
+footer {
+    background: linear-gradient(135deg, #1F2937 0%, #111827 100%) !important;
+    color: #E5E7EB !important;
+    padding: 4rem 0 2rem;
+}
+
+footer h3,
+footer h4 {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+footer p,
+footer span,
+footer div,
+footer li {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+}
+
+footer a {
+    color: #E5E7EB !important;
+    -webkit-text-fill-color: #E5E7EB !important;
+}
+
+footer a:hover {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ FORMS ============ */
+input,
+textarea,
+select {
+    background: #FFFFFF !important;
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+    border: 1px solid #D1D5DB;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 1rem !important; /* Prevent iOS zoom */
+}
+
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+    color: #9CA3AF !important;
+    -webkit-text-fill-color: #9CA3AF !important;
+    opacity: 1 !important;
+}
+
+label {
+    color: #374151 !important;
+    -webkit-text-fill-color: #374151 !important;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* ============ DROPDOWN MENUS ============ */
+/* CRITICAL: Initial hidden state for dropdowns on desktop */
+.navbar .relative.group .absolute,
+.navbar .group .absolute {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+    pointer-events: none !important;
+}
+
+.dropdown-menu,
+.relative.group .absolute,
+[class*="dropdown"] {
+    background: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 1rem;
+}
+
+/* Dropdown menu text must be dark on white background */
+.dropdown-menu a,
+.dropdown-menu div,
+.dropdown-menu span,
+.navbar .relative.group .absolute a,
+.navbar .relative.group .absolute div,
+.navbar .relative.group .absolute span,
+.navbar .relative.group .absolute a *,
+.navbar .relative.group .absolute div *,
+.navbar .relative.group .absolute .font-semibold,
+.navbar .relative.group .absolute .text-xs {
+    color: #374151 !important;
+    -webkit-text-fill-color: #374151 !important;
+    text-shadow: none !important;
+    background: none !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+}
+
+/* Icons in dropdown should remain white */
+.navbar .relative.group .absolute i {
+    color: #FFFFFF !important;
+}
+
+/* Secondary text in dropdown (smaller descriptions) */
+.navbar .relative.group .absolute .text-xs,
+.navbar .relative.group .absolute .text-gray-500 {
+    color: #6B7280 !important;
+    -webkit-text-fill-color: #6B7280 !important;
+}
+
+.dropdown-menu a:hover,
+.navbar .relative.group .absolute a:hover {
+    background: #F3F4F6 !important;
+}
+
+.navbar .relative.group .absolute a:hover .font-semibold {
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+}
+
+/* Show dropdown on hover - ONLY ON DESKTOP */
+@media (min-width: 769px) {
+    .navbar .relative.group:hover .absolute,
+    .relative.group:hover .absolute {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        pointer-events: auto !important;
+    }
+}
+
+/* ============ MOBILE MENU ============ */
+#mobile-menu {
+    background: #FFFFFF !important;
+    border-top: 1px solid #E5E7EB;
+}
+
+#mobile-menu a,
+#mobile-menu span,
+#mobile-menu div {
+    color: #374151 !important;
+    -webkit-text-fill-color: #374151 !important;
+}
+
+#mobile-menu a:hover {
+    background: #F3F4F6 !important;
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+}
+
+/* ============ TABLES ============ */
+table {
+    background: #FFFFFF !important;
+    width: 100%;
+}
+
+th {
+    background: #F3F4F6 !important;
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+    font-weight: 600;
+    padding: 0.75rem;
+}
+
+td {
+    color: #4B5563 !important;
+    -webkit-text-fill-color: #4B5563 !important;
+    padding: 0.75rem;
+}
+
+/* ============ BADGES AND TAGS ============ */
+.badge,
+.tag,
+[class*="badge"],
+[class*="tag"] {
+    background: #6366F1 !important;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* ============ STATS AND NUMBERS ============ */
+.stat,
+.stat-number,
+[class*="stat"] {
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+    font-weight: 700;
+}
+
+/* Stats on dark backgrounds */
+.hero .stat,
+.hero .stat-number,
+[style*="background: linear-gradient"] .stat {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ FIX TAILWIND COLOR CLASSES ============ */
+.text-gray-600 {
+    color: #4B5563 !important;
+    -webkit-text-fill-color: #4B5563 !important;
+}
+
+.text-gray-700 {
+    color: #374151 !important;
+    -webkit-text-fill-color: #374151 !important;
+}
+
+.text-gray-800 {
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+}
+
+.text-indigo-600,
+.text-indigo-700,
+.text-purple-600,
+.text-purple-700,
+[class*="text-indigo"],
+[class*="text-purple"] {
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+}
+
+.text-white {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ FIX INLINE STYLES ============ */
+/* Override any inline styles that hide text */
+/* EXCEPTION: Don't force visibility on dropdown menus - they need to be hidden initially */
+[style*="opacity: 0"]:not(.relative.group .absolute):not([class*="dropdown"]) {
+    opacity: 1 !important;
+}
+
+[style*="visibility: hidden"]:not(.relative.group .absolute):not([class*="dropdown"]) {
+    visibility: visible !important;
+}
+
+/* Note: We don't override display:none as some elements are intentionally hidden */
+
+[style*="font-size: 0"] {
+    font-size: 1rem !important;
+}
+
+[style*="color: transparent"] {
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+}
+
+/* Fix text on specific colored backgrounds */
+[style*="color: #333"],
+[style*="color: #000"],
+[style*="color: black"] {
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+}
+
+/* ============ Z-INDEX FIXES ============ */
+/* Ensure text isn't hidden behind other elements */
+.navbar {
+    z-index: 1000 !important;
+}
+
+.dropdown-menu,
+.relative.group .absolute {
+    z-index: 1001 !important;
+}
+
+#mobile-menu {
+    z-index: 999 !important;
+}
+
+/* ============ OVERFLOW FIXES ============ */
+/* Prevent text from being cut off */
+.container,
+section,
+div {
+    overflow: visible !important;
+}
+
+/* Exception: Keep overflow hidden where needed for layout */
+body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+/* ============ TEXT POSITIONING FIXES ============ */
+/* Ensure text isn't pushed off-screen */
+[style*="text-indent: -9999px"],
+[style*="text-indent: -999px"] {
+    text-indent: 0 !important;
+}
+
+[style*="position: absolute"][style*="left: -9999px"],
+[style*="position: absolute"][style*="left: -999px"] {
+    position: static !important;
+    left: auto !important;
+}
+
+/* ============ CONTRAST IMPROVEMENTS ============ */
+/* Ensure proper contrast for accessibility */
+section.bg-gray-50,
+section.py-20,
+.bg-white {
+    background: #FFFFFF !important;
+}
+
+section.bg-gray-50 h1,
+section.bg-gray-50 h2,
+section.bg-gray-50 h3,
+section.py-20 h1,
+section.py-20 h2,
+section.py-20 h3 {
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+}
+
+section.bg-gray-50 p,
+section.py-20 p {
+    color: #4B5563 !important;
+    -webkit-text-fill-color: #4B5563 !important;
+}
+
+/* ============ SPECIAL ELEMENTS ============ */
+code, pre {
+    background: #F3F4F6 !important;
+    color: #1F2937 !important;
+    -webkit-text-fill-color: #1F2937 !important;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+}
+
+blockquote {
+    color: #374151 !important;
+    -webkit-text-fill-color: #374151 !important;
+    border-left: 4px solid #6366F1;
+    padding-left: 1rem;
+}
+
+mark {
+    background: #FEF3C7 !important;
+    color: #92400E !important;
+    -webkit-text-fill-color: #92400E !important;
+    padding: 0.125rem 0.25rem;
+}
+
+strong, b {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+    font-weight: 700;
+}
+
+/* ============ LOADING AND ERROR STATES ============ */
+.loading {
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+    opacity: 1 !important;
+}
+
+.error {
+    color: #DC2626 !important;
+    -webkit-text-fill-color: #DC2626 !important;
+}
+
+.success {
+    color: #10B981 !important;
+    -webkit-text-fill-color: #10B981 !important;
+}
+
+.warning {
+    color: #F59E0B !important;
+    -webkit-text-fill-color: #F59E0B !important;
+}
+
+.info {
+    color: #3B82F6 !important;
+    -webkit-text-fill-color: #3B82F6 !important;
+}
+
+/* ============ DISABLED STATES ============ */
+.disabled,
+[disabled] {
+    opacity: 0.6 !important;
+    color: #9CA3AF !important;
+    -webkit-text-fill-color: #9CA3AF !important;
+    cursor: not-allowed;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+    /* Ensure text is visible on mobile */
+    h1 {
+        font-size: 2rem !important;
+    }
+    
+    h2 {
+        font-size: 1.75rem !important;
+    }
+    
+    h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Prevent text from being too small */
+    p, span, div, a {
+        font-size: 1rem !important;
+        line-height: 1.6;
+    }
+    
+    /* Ensure mobile menu is visible */
+    #mobile-menu {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    #mobile-menu.hidden {
+        display: none !important;
+    }
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+    * {
+        background: white !important;
+        color: black !important;
+        -webkit-text-fill-color: black !important;
+    }
+    
+    .navbar,
+    footer,
+    #mobile-menu,
+    .btn {
+        display: none !important;
+    }
+}
+
+/* ============ ACCESSIBILITY ============ */
+/* Ensure focus is visible */
+*:focus {
+    outline: 2px solid #6366F1 !important;
+    outline-offset: 2px;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ============ FINAL OVERRIDES ============ */
+/* Ensure gradient text classes don't make text invisible */
+.gradient-text,
+.text-gradient,
+[class*="gradient-text"] {
+    color: #6366F1 !important;
+    -webkit-text-fill-color: #6366F1 !important;
+    background: none !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+    font-weight: 700;
+}
+
+/* Exception: Gradient text on dark backgrounds */
+.hero .gradient-text,
+.navbar .gradient-text,
+footer .gradient-text {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeIn 0.6s ease forwards;
+    opacity: 1 !important;
+}
+
+/* ============ DEBUGGING ============ */
+/* Uncomment below to highlight all text elements for debugging */
+/*
+h1, h2, h3, h4, h5, h6, p, span, a, li, td, th, label, button {
+    border: 1px dashed red !important;
+}
+*/

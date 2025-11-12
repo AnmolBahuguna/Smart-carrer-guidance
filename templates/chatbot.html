@@ -291,11 +291,8 @@ document.getElementById('chatForm').addEventListener('submit', async function(e)
     showTyping();
     
     try {
-        // Try streaming first
-        let streamingResponse = '';
-        let botMessageDiv = null;
-        
-        const response = await fetch('/chat/stream', {
+        // Try regular endpoint first (more reliable)
+        const response = await fetch('/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -303,60 +300,33 @@ document.getElementById('chatForm').addEventListener('submit', async function(e)
             body: JSON.stringify({ message: message })
         });
         
+        hideTyping();
+        
         if (response.ok) {
-            // Hide typing indicator
-            hideTyping();
+            const data = await response.json();
             
-            // Create bot message container for streaming
-            botMessageDiv = createStreamingBotMessage();
-            
-            // Read the stream
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-            
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                
-                const chunk = decoder.decode(value);
-                const lines = chunk.split('\n');
-                
-                for (const line of lines) {
-                    if (line.startsWith('data: ')) {
-                        const content = line.substring(6);
-                        if (content && content !== '[DONE]') {
-                            streamingResponse += content;
-                            updateStreamingMessage(botMessageDiv, streamingResponse);
-                        }
-                    }
-                }
-            }
-            
-            // Save the complete response to chat history
-            saveChatToHistory(message, streamingResponse);
-            
-        } else {
-            // Fallback to regular endpoint if streaming fails
-            const fallbackResponse = await fetch('/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message: message })
-            });
-            
-            const data = await fallbackResponse.json();
-            hideTyping();
-            
-            if (data.response) {
+            if (data.success && data.response) {
+                addBotMessage(data.response);
+                saveChatToHistory(message, data.response);
+            } else if (data.response) {
+                // Even if success is false, show the response
                 addBotMessage(data.response);
             } else {
-                addBotMessage('Sorry, I encountered an error. Please try again.');
+                addBotMessage('Sorry, I couldn\'t process your request. Please try rephrasing your question.');
+            }
+        } else {
+            // Try to get error message from response
+            try {
+                const errorData = await response.json();
+                addBotMessage(errorData.error || 'Sorry, something went wrong. Please try again.');
+            } catch {
+                addBotMessage('Sorry, I couldn\'t connect to the server. Please try again.');
             }
         }
     } catch (error) {
         hideTyping();
-        addBotMessage('Sorry, I\'m having trouble connecting. Please check your connection and try again.');
+        console.error('Chat error:', error);
+        addBotMessage('⚠️ Connection error! Please check:\n\n1. Your internet connection\n2. The server is running (python app.py)\n3. Try refreshing the page\n\nIf the issue persists, the chatbot will still help with common career questions!');
     }
 });
 

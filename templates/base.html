@@ -14,57 +14,34 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Enhanced CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/enhanced-style.css') }}">
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Global Text Visibility Fix -->
-    <style>
-        /* Ensure all text is visible throughout the website */
-        * {
-            -webkit-text-fill-color: initial !important;
-        }
-        
-        /* Ensure all input and textarea text is visible */
-        input, textarea, select {
-            color: #000000 !important;
-        }
-        input::placeholder, textarea::placeholder {
-            color: #9ca3af !important;
-        }
-        input:focus, textarea:focus, select:focus {
-            color: #000000 !important;
-        }
-        
-        /* Ensure headings are always visible */
-        h1, h2, h3, h4, h5, h6 {
-            color: inherit;
-        }
-        
-        /* Fix for gradient text classes - ensure they have fallback colors */
-        .gradient-text {
-            color: #667eea !important;
-        }
-        
-        .gradient-text-secondary {
-            color: #764ba2 !important;
-        }
-        
-        .text-gradient {
-            color: #667eea !important;
-        }
-        
-        /* Ensure body text is visible */
-        body {
-            color: #1F2937;
-        }
-        
-        /* Ensure all paragraphs and spans are visible */
-        p, span, div, a {
-            color: inherit;
-        }
-    </style>
+    <!-- Core Layout & Responsive CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-fix.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-force-fix.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resources-dropdown-fix.css') }}">
+    
+    <!-- DARK MODE CYBERPUNK THEME -->
+    <!-- Modern dark mode with cyberpunk-inspired colors and glowing effects -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-mode-cyberpunk.css') }}">
+    
+    <!-- ANIMATED THEME - Scroll Reveals & Modern Animations -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animated-theme.css') }}">
     
     {% block extra_css %}{% endblock %}
+    
+    <!-- FINAL COMPREHENSIVE TEXT VISIBILITY FIX -->
+    <!-- This MUST be loaded ABSOLUTELY LAST to override all other CSS and ensure all text is visible -->
+    <!-- Fixes: gradient text, opacity, contrast, z-index, overflow, positioning issues -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/final-visibility-fix.css') }}">
+    
+    <!-- ULTIMATE TEXT VISIBILITY OVERRIDE -->
+    <!-- Ensures ALL text is readable with proper backgrounds and contrast -->
+    <!-- This is the ABSOLUTE LAST CSS file loaded -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/text-visibility-override.css') }}">
 </head>
 <body class="bg-gray-50">
     <!-- Enhanced Navigation -->
@@ -202,7 +179,7 @@
     </main>
 
     <!-- Enhanced Professional Footer -->
-    <footer class="relative overflow-hidden" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <footer class="relative overflow-hidden" style="background: linear-gradient(135deg, #1F2937 0%, #111827 100%);">
         <!-- Gradient Top Border -->
         <div class="absolute top-0 left-0 w-full h-1" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
         
@@ -214,9 +191,9 @@
                         <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                             <i class="fas fa-graduation-cap text-white text-2xl"></i>
                         </div>
-                        <span class="text-2xl font-bold" style="color: #667eea;">SmartCareer</span>
+                        <span class="text-2xl font-bold" style="color: #ffffff;">SmartCareer</span>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">
+                    <p class="text-gray-300 text-sm leading-relaxed">
                         Your AI-powered career guidance platform helping students discover their dream careers through intelligent assessments and personalized recommendations.
                     </p>
                     <!-- Social Icons -->
@@ -300,11 +277,59 @@
             offset: 100
         });
 
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
+        // Mobile menu toggle with improvements
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+            // Toggle menu on button click
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isHidden = mobileMenu.classList.contains('hidden');
+                
+                if (isHidden) {
+                    // Open menu
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenuButton.innerHTML = '<i class="fas fa-times text-xl"></i>';
+                    document.body.style.overflow = 'hidden'; // Prevent background scroll
+                } else {
+                    // Close menu
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                    document.body.style.overflow = ''; // Restore scroll
+                }
+            });
+            
+            // Close menu when clicking a link
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                    document.body.style.overflow = ''; // Restore scroll
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                        document.body.style.overflow = ''; // Restore scroll
+                    }
+                }
+            });
+            
+            // Close menu on window resize to desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                    document.body.style.overflow = ''; // Restore scroll
+                }
+            });
+        }
 
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
@@ -315,6 +340,60 @@
                 navbar.classList.remove('scrolled');
             }
         });
+    </script>
+    
+    <!-- Intersection Observer for Scroll Animations -->
+    <script>
+        // Intersection Observer for Scroll Reveal Animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger counter animation for stats if present
+                    if (entry.target.querySelector('.stat-number')) {
+                        const counters = entry.target.querySelectorAll('.stat-number');
+                        counters.forEach(counter => animateCounter(counter));
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-reveal elements
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.scroll-reveal, .fade-left, .fade-right, .scale-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Counter Animation Function for Stats
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target') || element.textContent.replace(/[^0-9]/g, ''));
+            if (isNaN(target) || element.dataset.animated) return;
+            
+            element.dataset.animated = 'true';
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    if (element.textContent.includes('%')) {
+                        element.textContent = target + '%';
+                    }
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
     </script>
     
     {% block extra_js %}{% endblock %}

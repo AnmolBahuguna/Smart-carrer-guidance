@@ -1,0 +1,692 @@
+/* ========================================
+   MOBILE FORCE FIX - Override All Inline Styles
+   Priority: MAXIMUM (!important everywhere)
+   ======================================== */
+
+/* ============ CRITICAL: Prevent Horizontal Scroll ============ */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+}
+
+* {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* ============ MOBILE SPECIFIC OVERRIDES ============ */
+@media (max-width: 768px) {
+    
+    /* Force all containers to be full width */
+    .container,
+    [class*="container"],
+    div[style*="max-width"] {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Hero Section */
+    .hero {
+        min-height: auto !important;
+        padding: 2rem 1rem !important;
+    }
+    
+    .hero > div,
+    .hero .container {
+        max-width: 100% !important;
+        padding: 0 1rem !important;
+    }
+    
+    .hero div[style*="padding: 5rem"] {
+        padding: 2rem 0 !important;
+    }
+    
+    /* Hero Title */
+    .hero-title,
+    h1.hero-title {
+        font-size: 1.75rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Hero Subtitle */
+    .hero-subtitle,
+    .hero p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        max-width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Force button container to stack */
+    div[style*="display: flex"][style*="gap: 1rem"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+        align-items: stretch !important;
+    }
+    
+    /* All buttons full width on mobile */
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    a.btn,
+    button.btn,
+    .hero .btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0.875rem 1rem !important;
+        font-size: 0.9rem !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Stats grid - Force single column */
+    div[style*="grid-template-columns: repeat(3, 1fr)"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        max-width: 100% !important;
+    }
+    
+    /* Stats numbers smaller on mobile */
+    div[style*="grid-template-columns"] div[style*="font-size: 2rem"] {
+        font-size: 1.5rem !important;
+    }
+    
+    /* All sections */
+    section,
+    section[style*="padding"] {
+        padding: 2.5rem 1rem !important;
+    }
+    
+    /* Section containers */
+    section > div,
+    section .container {
+        max-width: 100% !important;
+        padding: 0 1rem !important;
+    }
+    
+    /* Section titles */
+    section h2,
+    h2[style*="font-size"] {
+        font-size: 1.75rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    /* Section subtitles */
+    section p[style*="font-size: 1.25rem"] {
+        font-size: 1rem !important;
+    }
+    
+    /* Features Grid - Force single column */
+    div[style*="display: grid"][style*="grid-template-columns: repeat(3, 1fr)"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem !important;
+        padding: 1.5rem !important;
+    }
+    
+    /* Feature titles */
+    .feature-card h3,
+    h3[style*="font-size: 1.25rem"] {
+        font-size: 1.125rem !important;
+    }
+    
+    /* Roadmap Grid - Responsive */
+    div[style*="grid-template-columns: repeat(auto-fit"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Roadmap Cards */
+    div[style*="background: white"][style*="border-radius: 16px"] {
+        padding: 1.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Roadmap titles */
+    h3[style*="font-size: 1.5rem"] {
+        font-size: 1.25rem !important;
+    }
+    
+    /* How It Works Section */
+    .max-w-7xl,
+    .max-w-6xl,
+    .max-w-5xl {
+        max-width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .grid-cols-1 {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .md\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .md\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Text sizes */
+    .text-4xl,
+    .text-5xl {
+        font-size: 1.75rem !important;
+    }
+    
+    .text-xl {
+        font-size: 1rem !important;
+    }
+    
+    .text-2xl {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Padding utilities */
+    .py-20 {
+        padding-top: 2.5rem !important;
+        padding-bottom: 2.5rem !important;
+    }
+    
+    .px-4 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .p-8 {
+        padding: 1.5rem !important;
+    }
+    
+    .p-6 {
+        padding: 1.25rem !important;
+    }
+    
+    /* Gap utilities */
+    .gap-8 {
+        gap: 1.5rem !important;
+    }
+    
+    .gap-12 {
+        gap: 2rem !important;
+    }
+    
+    /* Images and icons */
+    img,
+    .w-16,
+    .w-12,
+    .w-10 {
+        max-width: 100% !important;
+    }
+    
+    /* CTA Section */
+    .cta {
+        padding: 2rem 1rem !important;
+    }
+    
+    .cta-title,
+    .cta h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .navbar {
+        padding: 0.75rem 1rem !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+    }
+
+    .navbar .hidden.md\:flex {
+        display: none !important;
+    }
+
+    .navbar .md\:hidden {
+        display: block !important;
+    }
+
+    /* CRITICAL: Mobile Menu Fixes */
+    #mobile-menu {
+        position: relative !important;
+        z-index: 9998 !important;
+        background: white !important;
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        max-height: 100vh !important;
+        overflow-y: auto !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Smooth show/hide */
+    #mobile-menu.hidden {
+        display: none !important;
+    }
+    
+    #mobile-menu:not(.hidden) {
+        display: block !important;
+        animation: slideDown 0.3s ease !important;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Ensure mobile menu links are clickable */
+    #mobile-menu a {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        display: block !important;
+        position: relative !important;
+        z-index: 10000 !important;
+        touch-action: manipulation !important;
+    }
+    
+    /* Mobile menu button */
+    #mobile-menu-button {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        z-index: 10001 !important;
+        position: relative !important;
+        transition: all 0.3s ease !important;
+        padding: 0.5rem !important;
+        border-radius: 0.5rem !important;
+    }
+    
+    #mobile-menu-button:hover {
+        background: rgba(102, 126, 234, 0.1) !important;
+    }
+    
+    #mobile-menu-button:active {
+        transform: scale(0.95) !important;
+    }
+    
+    /* Icon transition */
+    #mobile-menu-button i {
+        transition: transform 0.3s ease !important;
+    }
+    
+    /* Ensure links in mobile menu are visible and interactive */
+    #mobile-menu .block {
+        pointer-events: auto !important;
+        user-select: none !important;
+        -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1) !important;
+        transition: all 0.2s ease !important;
+        font-size: 1rem !important;
+        padding: 0.875rem 1rem !important;
+        border-radius: 0.5rem !important;
+    }
+    
+    /* Mobile menu link hover/active states */
+    #mobile-menu a:hover,
+    #mobile-menu a:focus {
+        background: rgba(102, 126, 234, 0.1) !important;
+        color: #667eea !important;
+        transform: translateX(4px) !important;
+    }
+    
+    #mobile-menu a:active {
+        background: rgba(102, 126, 234, 0.2) !important;
+        transform: scale(0.98) !important;
+    }
+    
+    /* Sign Up button in mobile menu */
+    #mobile-menu a[href="/register"] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        font-weight: 600 !important;
+        margin-top: 0.5rem !important;
+    }
+    
+    #mobile-menu a[href="/register"]:hover {
+        transform: translateX(0) scale(1.02) !important;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+    }
+    
+    /* Footer */
+    footer .grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    footer .md\:grid-cols-4 {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Cards with hover effects */
+    div[style*="transform"][style*="translateY"] {
+        transform: none !important;
+    }
+    
+    /* Remove transform on mobile for performance */
+    @media (hover: none) {
+        *:hover {
+            transform: none !important;
+        }
+    }
+}
+
+/* ============ VERY SMALL PHONES (< 480px) ============ */
+@media (max-width: 480px) {
+    
+    /* Even smaller text */
+    .hero-title,
+    h1.hero-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.875rem !important;
+    }
+    
+    /* Smaller buttons */
+    .btn {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    /* Smaller section padding */
+    section {
+        padding: 2rem 0.75rem !important;
+    }
+    
+    /* Smaller cards */
+    .feature-card,
+    .card {
+        padding: 1.25rem !important;
+    }
+    
+    /* Smaller titles */
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    h3 {
+        font-size: 1.125rem !important;
+    }
+    
+    /* Stats grid - single column with smaller text */
+    div[style*="grid-template-columns"] > div {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    div[style*="grid-template-columns"] div[style*="font-size: 2rem"] {
+        font-size: 1.35rem !important;
+    }
+}
+
+/* ============ LANDSCAPE MODE ON MOBILE ============ */
+@media (max-width: 768px) and (orientation: landscape) {
+    
+    .hero {
+        min-height: auto !important;
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem !important;
+    }
+    
+    section {
+        padding: 2rem 1rem !important;
+    }
+}
+
+/* ============ TABLET PORTRAIT ============ */
+@media (min-width: 481px) and (max-width: 768px) {
+    
+    /* 2 column layout for grids on tablets */
+    div[style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    div[style*="grid-template-columns: repeat(auto-fit"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    /* Stats can stay 3 columns on tablet */
+    .hero div[style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1rem !important;
+    }
+    
+    /* Buttons can be side by side on tablet */
+    div[style*="display: flex"][style*="gap: 1rem"]:has(.btn) {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .btn {
+        width: auto !important;
+        min-width: 45% !important;
+        flex: 1 !important;
+    }
+}
+
+/* ============ SPECIFIC ELEMENT FIXES ============ */
+
+/* Fix any element with fixed width */
+@media (max-width: 768px) {
+    [style*="width: 900px"],
+    [style*="width: 1200px"],
+    [style*="width: 800px"],
+    [style*="width: 700px"],
+    [style*="width: 600px"] {
+        width: 100% !important;
+    }
+    
+    /* Fix any element with large max-width */
+    [style*="max-width: 900px"],
+    [style*="max-width: 1200px"],
+    [style*="max-width: 800px"],
+    [style*="max-width: 700px"],
+    [style*="max-width: 600px"] {
+        max-width: 100% !important;
+    }
+    
+    /* Fix large padding values */
+    [style*="padding: 5rem"],
+    [style*="padding: 6rem"],
+    [style*="padding: 4rem"] {
+        padding: 2rem 1rem !important;
+    }
+    
+    /* Fix large font sizes */
+    [style*="font-size: 3.5rem"],
+    [style*="font-size: 3rem"],
+    [style*="font-size: 2.5rem"] {
+        font-size: 1.75rem !important;
+    }
+    
+    [style*="font-size: 2.25rem"],
+    [style*="font-size: 2rem"] {
+        font-size: 1.5rem !important;
+    }
+    
+    [style*="font-size: 1.5rem"] {
+        font-size: 1.25rem !important;
+    }
+    
+    [style*="font-size: 1.25rem"] {
+        font-size: 1.125rem !important;
+    }
+}
+
+/* ============ FLEX FIXES ============ */
+@media (max-width: 768px) {
+    /* Any flex container with multiple items should stack */
+    [style*="display: flex"]:not([style*="align-items"]) {
+        flex-direction: column !important;
+    }
+    
+    [style*="display: flex"][style*="justify-content: center"] {
+        align-items: stretch !important;
+    }
+    
+    [style*="display: flex"] > .btn,
+    [style*="display: flex"] > a.btn {
+        width: 100% !important;
+    }
+}
+
+/* ============ GRID AUTO-FIT FIX ============ */
+@media (max-width: 768px) {
+    [style*="grid-template-columns"][style*="auto-fit"] {
+        grid-template-columns: 1fr !important;
+    }
+    
+    [style*="grid-template-columns"][style*="minmax"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ============ POSITIONING FIXES ============ */
+@media (max-width: 768px) {
+    /* Remove negative margins */
+    [style*="margin-left: -"],
+    [style*="margin-right: -"] {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Fix absolute/relative positioning issues */
+    /* EXCEPTION: Don't break navbar dropdown positioning */
+    .absolute:not(.navbar .absolute):not(.navbar .group .absolute) {
+        position: relative !important;
+    }
+}
+
+/* ============ IMAGE & MEDIA FIXES ============ */
+@media (max-width: 768px) {
+    img,
+    video,
+    iframe {
+        max-width: 100% !important;
+        height: auto !important;
+        width: 100% !important;
+    }
+    
+    /* Icon sizes */
+    i[style*="font-size: 2rem"],
+    i[style*="font-size: 1.75rem"] {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* ============ SPACING UTILITIES ============ */
+@media (max-width: 768px) {
+    .mb-16,
+    .mb-12 {
+        margin-bottom: 2rem !important;
+    }
+    
+    .mb-8 {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .mt-16,
+    .mt-12 {
+        margin-top: 2rem !important;
+    }
+    
+    .mt-8 {
+        margin-top: 1.5rem !important;
+    }
+}
+
+/* ============ TEXT ALIGNMENT ============ */
+@media (max-width: 768px) {
+    /* Center text on mobile for better readability */
+    [style*="text-align: left"] {
+        text-align: center !important;
+    }
+    
+    /* Keep centered content centered */
+    [style*="text-align: center"] {
+        text-align: center !important;
+    }
+}
+
+/* ============ SHADOW REDUCTIONS FOR PERFORMANCE ============ */
+@media (max-width: 768px) {
+    [style*="box-shadow"] {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+}
+
+/* ============ FINAL CATCH-ALL ============ */
+@media (max-width: 768px) {
+    /* Ensure nothing breaks the viewport */
+    body > *,
+    main > *,
+    section > * {
+        max-width: 100vw !important;
+    }
+    
+    /* Remove any transform that might cause overflow */
+    *[style*="transform: translateX"] {
+        transform: none !important;
+    }
+    
+    /* CRITICAL: Prevent any overlays from blocking navigation */
+    nav, .navbar, #mobile-menu, #mobile-menu-button {
+        pointer-events: auto !important;
+    }
+    
+    /* Ensure all nav links work */
+    nav a, .navbar a, #mobile-menu a {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+    }
+    
+    /* Remove any pseudo-elements that might block clicks */
+    nav *::before,
+    nav *::after,
+    .navbar *::before,
+    .navbar *::after {
+        pointer-events: none !important;
+    }
+    
+    /* But keep link content clickable */
+    nav a *,
+    .navbar a * {
+        pointer-events: auto !important;
+    }
+}
+
+/* ============ PRINT FIXES ============ */
+@media print {
+    /* Remove all the !important overrides for printing */
+    * {
+        max-width: none !important;
+        width: auto !important;
+    }
+}

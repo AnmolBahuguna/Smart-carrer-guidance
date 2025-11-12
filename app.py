@@ -439,10 +439,20 @@ def chat():
     """Handle chatbot conversation"""
     try:
         data = request.get_json()
-        user_message = data.get('message', '')
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+            
+        user_message = data.get('message', '').strip()
+        
+        if not user_message:
+            return jsonify({'error': 'Message is required'}), 400
+        
+        print(f"Received message: {user_message}")
         
         # Get chatbot response
         bot_response = get_chatbot_response(user_message)
+        
+        print(f"Generated response: {bot_response[:100]}...")
         
         # Save to in-memory storage
         chat_entry = {
@@ -466,19 +476,34 @@ def chat():
             'response': bot_response
         })
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Chat error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            'success': False,
+            'error': 'Sorry, I encountered an error processing your request.',
+            'response': get_rule_based_response('help')
+        }), 200
 
 @app.route('/chat/stream', methods=['POST'])
 def chat_stream():
     """Handle streaming chatbot conversation for real-time responses"""
     try:
         data = request.get_json()
-        user_message = data.get('message', '')
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+            
+        user_message = data.get('message', '').strip()
+        
+        if not user_message:
+            return jsonify({'error': 'Message is required'}), 400
+        
+        print(f"Stream request for: {user_message}")
         
         def generate():
             try:
-                # Try OpenAI streaming first
-                if OPENAI_API_KEY and not USE_FREE_API:
+                # Try OpenAI streaming first if API key is properly configured
+                if OPENAI_API_KEY and len(OPENAI_API_KEY) > 10 and not USE_FREE_API:
                     try:
                         from openai import OpenAI
                         client = OpenAI(api_key=OPENAI_API_KEY)
@@ -502,51 +527,73 @@ def chat_stream():
                         for chunk in stream:
                             if chunk.choices[0].delta.content:
                                 yield f"data: {chunk.choices[0].delta.content}\n\n"
+                        yield "data: [DONE]\n\n"
                         return
                         
                     except Exception as e:
                         print(f"OpenAI streaming error: {e}")
                 
-                # Fallback to regular response
+                # Fallback to regular response (always works)
+                print("Using rule-based fallback for streaming")
                 response = get_chatbot_response(user_message)
-                yield f"data: {response}\n\n"
+                
+                # Stream the response word by word for better UX
+                words = response.split(' ')
+                for i, word in enumerate(words):
+                    if i == len(words) - 1:
+                        yield f"data: {word}\n\n"
+                    else:
+                        yield f"data: {word} \n\n"
+                    time.sleep(0.02)  # Small delay for streaming effect
+                
+                yield "data: [DONE]\n\n"
                 
             except Exception as e:
-                yield f"data: Sorry, I encountered an error: {str(e)}\n\n"
+                print(f"Streaming error: {e}")
+                error_msg = "Sorry, I encountered an error. Please try again!"
+                yield f"data: {error_msg}\n\n"
+                yield "data: [DONE]\n\n"
         
-        return Response(generate(), mimetype='text/plain')
+        return Response(generate(), mimetype='text/event-stream', headers={
+            'Cache-Control': 'no-cache',
+            'X-Accel-Buffering': 'no'
+        })
         
     except Exception as e:
+        print(f"Stream endpoint error: {e}")
         return jsonify({'error': str(e)}), 500
 
 def get_chatbot_response(message):
     """Generate chatbot response using AI or rule-based system"""
     
+    # Always ensure we have a valid message
+    if not message or not message.strip():
+        return "I didn't receive any message. Please try asking me something! 😊"
+    
+    message = message.strip()
+    
     # Try OpenRouter/OpenAI API first if configured
-    if OPENAI_API_KEY:
+    if OPENAI_API_KEY and len(OPENAI_API_KEY) > 10:
         try:
-            return get_openai_response(message)
+            response = get_openai_response(message)
+            if response:
+                return response
         except Exception as e:
             print(f"OpenAI API error: {e}")
             # Fall back to rule-based
     
     # Try Gemini API as alternative
-    if GEMINI_API_KEY:
+    if GEMINI_API_KEY and len(GEMINI_API_KEY) > 10:
         try:
-            return get_gemini_response(message)
+            response = get_gemini_response(message)
+            if response:
+                return response
         except Exception as e:
             print(f"Gemini API error: {e}")
             # Fall back to rule-based
     
-    # Try free alternative API
-    if USE_FREE_API:
-        try:
-            return get_free_ai_response(message)
-        except Exception as e:
-            print(f"Free API error: {e}")
-            # Fall back to rule-based
-    
-    # Rule-based fallback
+    # Always use rule-based as reliable fallback
+    print(f"Using rule-based response for: {message}")
     return get_rule_based_response(message)
 
 def get_openai_response(message):
@@ -638,7 +685,10 @@ def get_free_ai_response(message):
 
 def get_rule_based_response(message):
     """Enhanced rule-based chatbot responses with comprehensive career guidance"""
-    message_lower = message.lower()
+    if not message:
+        return "Hello! How can I help you with your career today? 😊"
+    
+    message_lower = message.lower().strip()
     
     # Expanded responses database
     responses = {

@@ -1,0 +1,825 @@
+/* ============================================================================
+   MODERN DARK MODE CYBERPUNK THEME
+   Deep navy background with electric indigo, hot pink, and neon green accents
+   Futuristic professional aesthetic with glowing effects
+   ============================================================================ */
+
+/* ============ CSS VARIABLES ============ */
+:root {
+    /* Background Colors */
+    --bg-main: #0A0E27;
+    --bg-card: #1A1F3A;
+    --bg-elevated: #252B4A;
+    --bg-hover: #2D3548;
+    
+    /* Primary Colors */
+    --primary-indigo: #6366F1;
+    --primary-pink: #EC4899;
+    --accent-green: #14F195;
+    
+    /* Gradient Definitions */
+    --gradient-primary: linear-gradient(135deg, #6366F1 0%, #EC4899 100%);
+    --gradient-secondary: linear-gradient(135deg, #14F195 0%, #6366F1 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+    --gradient-glow: linear-gradient(135deg, #6366F1 0%, #EC4899 50%, #14F195 100%);
+    
+    /* Text Colors */
+    --text-primary: #FFFFFF;
+    --text-secondary: #B4BFCD;
+    --text-muted: #6B7280;
+    
+    /* Border & Shadow Colors */
+    --border-default: #2D3548;
+    --border-glow: rgba(99, 102, 241, 0.5);
+    
+    /* Glow Effects */
+    --glow-indigo: 0 0 20px rgba(99, 102, 241, 0.4);
+    --glow-pink: 0 0 20px rgba(236, 72, 153, 0.4);
+    --glow-green: 0 0 20px rgba(20, 241, 149, 0.4);
+    --glow-combined: 0 0 30px rgba(99, 102, 241, 0.3), 0 0 60px rgba(236, 72, 153, 0.2);
+    
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Poppins', sans-serif;
+}
+
+/* ============ GLOBAL STYLES ============ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-main) !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-primary) !important;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Animated Background Pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(20, 241, 149, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: backgroundPulse 15s ease infinite;
+}
+
+@keyframes backgroundPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* ============ TYPOGRAPHY ============ */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading) !important;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    background: var(--gradient-glow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: var(--text-secondary) !important;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Gradient text animation */
+@keyframes gradientText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+    background: var(--gradient-glow) !important;
+    background-size: 200% auto;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: gradientText 5s ease infinite;
+}
+
+/* ============ NAVBAR - Futuristic Dark ============ */
+.navbar {
+    background: rgba(10, 14, 39, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid var(--border-default) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), 0 0 1px rgba(99, 102, 241, 0.5) !important;
+}
+
+.navbar.scrolled {
+    background: rgba(10, 14, 39, 0.98) !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 2px var(--primary-indigo) !important;
+}
+
+.navbar *,
+.navbar a,
+.navbar button,
+.nav-link {
+    color: var(--text-primary) !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.navbar .gradient-text {
+    background: var(--gradient-primary) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+}
+
+.nav-link {
+    position: relative;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::before {
+    width: 80%;
+}
+
+.nav-link:hover {
+    color: var(--accent-green) !important;
+    text-shadow: 0 0 10px rgba(20, 241, 149, 0.5) !important;
+}
+
+/* ============ DROPDOWN MENUS ============ */
+/* Initial hidden state - CRITICAL FIX */
+.navbar .relative.group .absolute,
+.navbar .group .absolute {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+    pointer-events: none !important;
+}
+
+/* Show dropdown on hover - ONLY ON DESKTOP (prevent mobile sidebar issue) */
+@media (min-width: 769px) {
+    .navbar .relative.group:hover .absolute {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        pointer-events: auto !important;
+    }
+}
+
+.dropdown-menu,
+.relative.group .absolute {
+    background: var(--bg-elevated) !important;
+    border: 1px solid var(--border-default) !important;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        0 0 1px var(--primary-indigo),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-radius: 1rem !important;
+    z-index: 9999 !important;
+}
+
+/* ALL dropdown text must be white and visible */
+.navbar .relative.group .absolute,
+.navbar .relative.group .absolute *,
+.navbar .relative.group .absolute a,
+.navbar .relative.group .absolute div,
+.navbar .relative.group .absolute span {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Main link items */
+.navbar .relative.group .absolute a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 0.75rem !important;
+    border-left: 3px solid transparent !important;
+}
+
+.navbar .relative.group .absolute a:hover {
+    background: rgba(99, 102, 241, 0.15) !important;
+    border-left-color: var(--primary-indigo) !important;
+    transform: translateX(5px) !important;
+}
+
+/* Title text in dropdown items */
+.navbar .relative.group .absolute .font-semibold {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+}
+
+/* Description text in dropdown items */
+.navbar .relative.group .absolute .text-xs,
+.navbar .relative.group .absolute .text-gray-500 {
+    color: var(--text-secondary) !important;
+    font-size: 0.75rem !important;
+}
+
+/* Icons in dropdown */
+.navbar .relative.group .absolute i {
+    color: var(--text-primary) !important;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Icon container backgrounds */
+.navbar .relative.group .absolute a > div:first-child {
+    flex-shrink: 0 !important;
+}
+
+/* ============ HERO SECTION ============ */
+.hero {
+    background: var(--bg-main) !important;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 0 6rem !important;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hero);
+    opacity: 0.5;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    animation: heroGlow 8s ease-in-out infinite;
+}
+
+@keyframes heroGlow {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+}
+
+.hero * {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1,
+.hero-title {
+    font-size: 4rem !important;
+    background: var(--gradient-glow) !important;
+    background-size: 200% auto;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: gradientText 5s ease infinite;
+    filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
+    margin-bottom: 1.5rem !important;
+}
+
+.hero p,
+.hero-subtitle {
+    color: var(--text-secondary) !important;
+    font-size: 1.25rem !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Hero Stats */
+.hero .stat,
+.hero [style*="font-size: 2rem"] {
+    background: var(--gradient-primary) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    font-weight: 800 !important;
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+}
+
+/* ============ BUTTONS ============ */
+.btn,
+button,
+a.btn {
+    position: relative;
+    padding: 1rem 2rem !important;
+    border-radius: 0.75rem !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.btn:hover::before {
+    transform: translateX(100%);
+}
+
+.btn-primary {
+    background: var(--gradient-primary) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 
+        0 4px 15px rgba(99, 102, 241, 0.4),
+        0 0 20px rgba(236, 72, 153, 0.2) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 
+        0 8px 25px rgba(99, 102, 241, 0.6),
+        0 0 40px rgba(236, 72, 153, 0.4) !important;
+}
+
+.btn-secondary {
+    background: transparent !important;
+    color: var(--text-primary) !important;
+    border: 2px solid var(--primary-indigo) !important;
+    box-shadow: 
+        0 0 20px rgba(99, 102, 241, 0.3),
+        inset 0 0 20px rgba(99, 102, 241, 0.1) !important;
+}
+
+.btn-secondary:hover {
+    background: rgba(99, 102, 241, 0.1) !important;
+    border-color: var(--accent-green) !important;
+    box-shadow: 
+        0 0 30px rgba(20, 241, 149, 0.5),
+        inset 0 0 30px rgba(20, 241, 149, 0.1) !important;
+    transform: translateY(-3px) !important;
+}
+
+/* ============ CARDS - Glowing Cyberpunk Style ============ */
+.card,
+.feature-card,
+.card-3d,
+[class*="card"] {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: 1.25rem !important;
+    padding: 2rem !important;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 1px var(--border-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card:hover,
+.feature-card:hover,
+.card-3d:hover {
+    transform: translateY(-10px) !important;
+    border-color: var(--primary-indigo) !important;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(99, 102, 241, 0.4),
+        0 0 60px rgba(236, 72, 153, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.card h3,
+.feature-card h3 {
+    color: var(--text-primary) !important;
+    background: var(--gradient-primary) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    margin-bottom: 1rem !important;
+}
+
+.card p,
+.feature-card p {
+    color: var(--text-secondary) !important;
+}
+
+/* Card Glow Effect on Hover */
+@keyframes cardGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.5); }
+}
+
+/* ============ FEATURE ICONS ============ */
+.feature-icon {
+    width: 4rem !important;
+    height: 4rem !important;
+    background: var(--gradient-primary) !important;
+    border-radius: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 1.5rem !important;
+    box-shadow: var(--glow-combined);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: iconShine 3s ease infinite;
+}
+
+@keyframes iconShine {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.feature-icon i {
+    color: var(--text-primary) !important;
+    font-size: 2rem !important;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    z-index: 1;
+}
+
+/* ============ SECTIONS ============ */
+section {
+    position: relative;
+    padding: 5rem 0 !important;
+    background: transparent !important;
+}
+
+section.bg-gray-50,
+section.py-20 {
+    background: rgba(26, 31, 58, 0.3) !important;
+    border-top: 1px solid var(--border-default);
+    border-bottom: 1px solid var(--border-default);
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: var(--gradient-glow) !important;
+    background-size: 200% auto;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: gradientText 5s ease infinite;
+}
+
+section p {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    color: var(--text-secondary) !important;
+}
+
+/* ============ FOOTER ============ */
+footer {
+    background: rgba(10, 14, 39, 0.98) !important;
+    border-top: 1px solid var(--border-default) !important;
+    box-shadow: 
+        0 -4px 30px rgba(0, 0, 0, 0.3),
+        0 0 1px var(--primary-indigo) !important;
+    padding: 4rem 0 2rem !important;
+}
+
+footer h3,
+footer h4 {
+    color: var(--text-primary) !important;
+    background: var(--gradient-primary) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    font-weight: 600 !important;
+}
+
+footer p,
+footer span,
+footer div,
+footer li {
+    color: var(--text-secondary) !important;
+}
+
+footer a {
+    color: var(--text-secondary) !important;
+    transition: all 0.3s ease !important;
+}
+
+footer a:hover {
+    color: var(--accent-green) !important;
+    text-shadow: 0 0 10px rgba(20, 241, 149, 0.5) !important;
+}
+
+/* Social Icons */
+footer .social-icon,
+footer a[class*="social"] {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.75rem;
+    background: var(--bg-elevated) !important;
+    border: 1px solid var(--border-default);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+footer .social-icon:hover {
+    background: var(--gradient-primary) !important;
+    border-color: var(--primary-indigo);
+    box-shadow: var(--glow-combined);
+    transform: translateY(-5px);
+}
+
+/* ============ FORMS ============ */
+input,
+textarea,
+select {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-default) !important;
+    padding: 1rem !important;
+    border-radius: 0.75rem !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    border-color: var(--primary-indigo) !important;
+    box-shadow: 
+        0 0 0 3px rgba(99, 102, 241, 0.1),
+        0 0 20px rgba(99, 102, 241, 0.3) !important;
+    background: var(--bg-elevated) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted) !important;
+}
+
+label {
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.5rem !important;
+    display: block;
+}
+
+/* ============ TABLES ============ */
+table {
+    background: var(--bg-card) !important;
+    border-radius: 1rem !important;
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+}
+
+th {
+    background: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    padding: 1rem !important;
+    border-bottom: 2px solid var(--primary-indigo);
+}
+
+td {
+    color: var(--text-secondary) !important;
+    padding: 1rem !important;
+    border-bottom: 1px solid var(--border-default);
+}
+
+tr:hover {
+    background: rgba(99, 102, 241, 0.05) !important;
+}
+
+/* ============ BADGES ============ */
+.badge,
+.tag,
+[class*="badge"] {
+    background: var(--gradient-primary) !important;
+    color: var(--text-primary) !important;
+    padding: 0.35rem 1rem !important;
+    border-radius: 9999px !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+}
+
+/* ============ MOBILE MENU ============ */
+#mobile-menu {
+    background: var(--bg-elevated) !important;
+    border-top: 1px solid var(--border-default) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+#mobile-menu a {
+    color: var(--text-primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+#mobile-menu a:hover {
+    background: rgba(99, 102, 241, 0.1) !important;
+    border-left: 3px solid var(--primary-indigo) !important;
+    color: var(--accent-green) !important;
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+    border-left: 1px solid var(--border-default);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 6px;
+    border: 2px solid var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(236, 72, 153, 0.6);
+    }
+}
+
+.pulse-glow {
+    animation: pulse 2s ease infinite;
+}
+
+/* ============ LOADING SPINNER ============ */
+.spinner,
+.loading {
+    border: 4px solid rgba(99, 102, 241, 0.2);
+    border-left-color: var(--primary-indigo);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============ UTILITY CLASSES ============ */
+.glow-text {
+    text-shadow: 
+        0 0 10px rgba(99, 102, 241, 0.5),
+        0 0 20px rgba(236, 72, 153, 0.3),
+        0 0 30px rgba(20, 241, 149, 0.2);
+}
+
+.glow-border {
+    box-shadow: 
+        0 0 20px rgba(99, 102, 241, 0.3),
+        0 0 40px rgba(236, 72, 153, 0.2),
+        inset 0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+.neon-accent {
+    color: var(--accent-green) !important;
+    text-shadow: 0 0 10px rgba(20, 241, 149, 0.7);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+    h1, .hero-title {
+        font-size: 2.5rem !important;
+    }
+    
+    h2 {
+        font-size: 2rem !important;
+    }
+    
+    .hero {
+        padding: 4rem 0 3rem !important;
+    }
+    
+    .card,
+    .feature-card {
+        padding: 1.5rem !important;
+    }
+}
+
+/* ============ ACCESSIBILITY ============ */
+*:focus-visible {
+    outline: 2px solid var(--primary-indigo) !important;
+    outline-offset: 4px;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .navbar,
+    footer,
+    .btn {
+        display: none !important;
+    }
+}

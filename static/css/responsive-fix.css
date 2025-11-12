@@ -1,0 +1,803 @@
+/* ========================================
+   COMPREHENSIVE RESPONSIVE CSS FIX
+   for Mobile and Desktop Views
+   ======================================== */
+
+/* ============ BASE RESETS ============ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============ CONTAINER FIXES ============ */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ============ NAVIGATION RESPONSIVE ============ */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 1rem;
+    }
+    
+    .navbar .flex {
+        flex-wrap: wrap;
+    }
+    
+    /* Hide desktop menu on mobile */
+    .navbar .hidden.md\:flex {
+        display: none !important;
+    }
+    
+    /* Mobile menu button visible */
+    .md\:hidden {
+        display: block !important;
+    }
+    
+    /* Mobile menu styling */
+    #mobile-menu {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    #mobile-menu:not(.hidden) {
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+}
+
+@media (min-width: 769px) {
+    /* Show desktop menu */
+    .hidden.md\:flex {
+        display: flex !important;
+    }
+    
+    /* Hide mobile menu button */
+    .md\:hidden {
+        display: none !important;
+    }
+}
+
+/* ============ HERO SECTION RESPONSIVE ============ */
+.hero {
+    min-height: 60vh;
+    padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .hero {
+        min-height: 70vh;
+        padding: 4rem 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero {
+        min-height: 80vh;
+        padding: 5rem 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero {
+        min-height: 90vh;
+        padding: 6rem 2rem;
+    }
+}
+
+/* Hero Title Responsive */
+.hero-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+    .hero-title {
+        font-size: 2.25rem;
+        margin-bottom: 1.25rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 2.75rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Hero Subtitle Responsive */
+.hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .hero-subtitle {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2.5rem;
+    }
+}
+
+/* ============ BUTTON RESPONSIVE ============ */
+.btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    width: auto;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8125rem;
+    }
+    
+    /* Stack buttons vertically on very small screens */
+    .hero .flex-row,
+    .flex.gap-1 {
+        flex-direction: column !important;
+        width: 100%;
+    }
+    
+    .hero .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 640px) {
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9375rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .btn {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* ============ GRID LAYOUTS RESPONSIVE ============ */
+/* 3-column grid responsive */
+[style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+}
+
+@media (min-width: 640px) {
+    [style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    [style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* Stats grid responsive */
+.hero [style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1rem !important;
+}
+
+@media (max-width: 480px) {
+    .hero [style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 640px) {
+    .hero [style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.75rem !important;
+        font-size: 0.875rem;
+    }
+}
+
+/* ============ FEATURE CARDS RESPONSIVE ============ */
+.feature-card {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .feature-card {
+        padding: 2rem;
+        margin-bottom: 0;
+    }
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+/* ============ SECTION PADDING RESPONSIVE ============ */
+section {
+    padding: 3rem 1rem !important;
+}
+
+@media (min-width: 640px) {
+    section {
+        padding: 4rem 1.5rem !important;
+    }
+}
+
+@media (min-width: 768px) {
+    section {
+        padding: 5rem 2rem !important;
+    }
+}
+
+/* ============ TYPOGRAPHY RESPONSIVE ============ */
+h1 {
+    font-size: 1.875rem;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+}
+
+h3 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+    h1 { font-size: 2.25rem; }
+    h2 { font-size: 1.875rem; }
+    h3 { font-size: 1.5rem; }
+}
+
+@media (min-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.75rem; }
+}
+
+@media (min-width: 1024px) {
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.5rem; }
+    h3 { font-size: 2rem; }
+}
+
+/* ============ TAILWIND GRID UTILITIES RESPONSIVE ============ */
+.grid.grid-cols-1 {
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+    .sm\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .lg\:grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ============ FORM ELEMENTS RESPONSIVE ============ */
+input, textarea, select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+}
+
+/* ============ MODAL/DIALOG RESPONSIVE ============ */
+.modal, .dialog {
+    width: 95%;
+    max-width: 600px;
+    margin: 1rem auto;
+}
+
+@media (min-width: 768px) {
+    .modal, .dialog {
+        width: 90%;
+        margin: 2rem auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .modal, .dialog {
+        width: auto;
+        margin: 3rem auto;
+    }
+}
+
+/* ============ CAREER ROADMAP CARDS RESPONSIVE ============ */
+[style*="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))"] {
+    grid-template-columns: 1fr !important;
+}
+
+@media (min-width: 640px) {
+    [style*="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    [style*="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))"] {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    }
+}
+
+/* ============ FOOTER RESPONSIVE ============ */
+footer .grid {
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    footer .grid.grid-cols-1.md\:grid-cols-4 {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+    }
+    
+    footer .flex.space-x-3,
+    footer .flex.space-x-4 {
+        justify-content: center;
+    }
+}
+
+/* ============ CTA SECTION RESPONSIVE ============ */
+.cta {
+    padding: 2rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .cta {
+        padding: 3rem 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .cta {
+        padding: 4rem 2rem;
+    }
+}
+
+.cta-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+    .cta-title {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .cta-title {
+        font-size: 2.5rem;
+    }
+}
+
+.cta-subtitle {
+    font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+    .cta-subtitle {
+        font-size: 1.125rem;
+    }
+}
+
+/* ============ HOW IT WORKS SECTION RESPONSIVE ============ */
+.py-20 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+@media (min-width: 640px) {
+    .py-20 {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .py-20 {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+    }
+}
+
+/* ============ CARD HOVER EFFECTS RESPONSIVE ============ */
+@media (max-width: 768px) {
+    /* Reduce 3D effects on mobile for better performance */
+    .card:hover,
+    .feature-card:hover,
+    .card-3d:hover {
+        transform: translateY(-5px) !important;
+    }
+}
+
+/* ============ TEXT ALIGNMENT RESPONSIVE ============ */
+@media (max-width: 640px) {
+    .text-responsive-center {
+        text-align: center !important;
+    }
+}
+
+/* ============ SPACING UTILITIES RESPONSIVE ============ */
+@media (max-width: 768px) {
+    .max-w-7xl {
+        max-width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .px-4 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .sm\:px-6 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* ============ FLEX UTILITIES RESPONSIVE ============ */
+@media (max-width: 640px) {
+    .flex-responsive-column {
+        flex-direction: column !important;
+    }
+    
+    .gap-8 {
+        gap: 1.5rem !important;
+    }
+    
+    .gap-12 {
+        gap: 2rem !important;
+    }
+}
+
+/* ============ OVERFLOW FIXES ============ */
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* ============ VIEWPORT FIXES ============ */
+@media (max-width: 768px) {
+    /* Fix viewport issues on mobile */
+    * {
+        max-width: 100vw;
+    }
+    
+    /* Prevent horizontal scroll */
+    body, html {
+        overflow-x: hidden;
+        position: relative;
+    }
+}
+
+/* ============ TOUCH FRIENDLY ELEMENTS ============ */
+@media (max-width: 768px) {
+    /* Larger touch targets for mobile */
+    button, a, input, select, textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .btn {
+        min-height: 44px;
+    }
+}
+
+/* ============ DROPDOWN MENU RESPONSIVE ============ */
+/* CRITICAL FIX: The navbar dropdown should be hidden on desktop and not shown on mobile */
+/* Mobile menu items are duplicated in the mobile menu itself (see base.html mobile-menu section) */
+@media (max-width: 768px) {
+    /* Hide the desktop dropdown on mobile - users will use the mobile menu instead */
+    .navbar .group .absolute {
+        display: none !important;
+    }
+}
+
+/* ============ HIDE DECORATIVE ELEMENTS ON SMALL SCREENS ============ */
+@media (max-width: 768px) {
+    .hidden.md\:block {
+        display: none !important;
+    }
+}
+
+/* ============ FONT SIZE ADJUSTMENTS FOR READABILITY ============ */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    p {
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 769px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+/* ============ ASPECT RATIO FIXES ============ */
+.aspect-video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+}
+
+.aspect-square {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+    nav, footer, .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+    }
+    
+    * {
+        box-shadow: none !important;
+    }
+}
+
+/* ============ LANDSCAPE MOBILE FIXES ============ */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 2rem 1rem;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* ============ LARGE DESKTOP OPTIMIZATIONS ============ */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1280px;
+    }
+    
+    .max-w-7xl {
+        max-width: 1280px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1536px;
+    }
+    
+    .max-w-7xl {
+        max-width: 1536px;
+    }
+}
+
+/* ============ ACCESSIBILITY IMPROVEMENTS ============ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============ HIGH CONTRAST MODE ============ */
+@media (prefers-contrast: high) {
+    .btn {
+        border: 2px solid currentColor !important;
+    }
+}
+
+/* ============ SPECIFIC COMPONENT FIXES ============ */
+
+/* Process Steps Responsive */
+@media (max-width: 768px) {
+    .process-step {
+        padding: 1.5rem;
+    }
+    
+    .step-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Stat Cards Responsive */
+@media (max-width: 640px) {
+    .stat-card {
+        padding: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+
+/* Testimonial Cards Responsive */
+@media (max-width: 768px) {
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+    
+    .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* ============ ENSURE INLINE STYLES DON'T BREAK RESPONSIVE ============ */
+@media (max-width: 768px) {
+    [style*="display: grid"] {
+        gap: 1.5rem !important;
+    }
+    
+    [style*="display: flex"] {
+        flex-wrap: wrap !important;
+        gap: 1rem !important;
+    }
+    
+    [style*="max-width: 1200px"] {
+        max-width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    [style*="max-width: 900px"],
+    [style*="max-width: 700px"],
+    [style*="max-width: 600px"] {
+        max-width: 100% !important;
+    }
+    
+    /* Fix hero section inline styles */
+    .hero [style*="padding: 5rem 0"] {
+        padding: 3rem 0 !important;
+    }
+    
+    /* Fix button containers */
+    [style*="display: flex; gap: 1rem; justify-content: center"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.75rem !important;
+    }
+    
+    [style*="display: flex; gap: 1rem; justify-content: center"] .btn {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Stack hero buttons */
+    .hero [style*="display: flex"] {
+        flex-direction: column !important;
+    }
+    
+    .hero .btn {
+        width: 100% !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Adjust hero stats grid */
+    [style*="display: grid; grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    /* Fix font sizes with inline styles */
+    [style*="font-size: 3.5rem"],
+    [style*="font-size: 2.5rem"],
+    [style*="font-size: 2.25rem"] {
+        font-size: 1.75rem !important;
+    }
+    
+    [style*="font-size: 1.25rem"] {
+        font-size: 1rem !important;
+    }
+}
+
+/* ============ SAFE AREA FOR NOTCHED DEVICES ============ */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
+/* ============ END OF RESPONSIVE FIX ============ */
